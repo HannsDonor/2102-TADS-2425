@@ -1,0 +1,24 @@
+# Ignore common Windows directories and files
+AppData/
+OneDrive/
+Documents/My Music/
+Documents/My Pictures/
+Documents/My Videos/
+Saved Games/
+Contacts/
+Favorites/
+Links/
+Music/
+Videos/
+
+# Ignore NTUSER.DAT and related system files
+NTUSER.DAT*
+.ntuser.ini
+*.log
+*.regtrans-ms
+*.blf
+*.txr
+
+# Ignore other personal data or workspace directories
+PycharmProjects/
+Downloads/
