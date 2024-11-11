@@ -5,6 +5,8 @@
 package HOME;
 
 import LoginFrames.Log_in_Frame;
+import HOME.ViewDeliveries.ViewDeliveries;
+import HOME.UpdateAccount.UpdateAccount;
 
 /**
  *
@@ -30,8 +32,8 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnBookTruck = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnViewOrders = new javax.swing.JButton();
+        btnUpdateAccount = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,9 +49,19 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("View Orders");
+        btnViewOrders.setText("View Deliveries");
+        btnViewOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewOrdersActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Update Account");
+        btnUpdateAccount.setText("Update Account");
+        btnUpdateAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateAccountActionPerformed(evt);
+            }
+        });
 
         btnLogout.setText("Log out");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -67,8 +79,8 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBookTruck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                    .addComponent(btnViewOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdateAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
                 .addContainerGap(84, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -83,9 +95,9 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnBookTruck)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnViewOrders)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(btnUpdateAccount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addGap(17, 17, 17))
@@ -105,6 +117,18 @@ public class Home extends javax.swing.JFrame {
         login.show();
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnViewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrdersActionPerformed
+        ViewDeliveries VD = new ViewDeliveries();
+        VD.show();
+        dispose();
+    }//GEN-LAST:event_btnViewOrdersActionPerformed
+
+    private void btnUpdateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateAccountActionPerformed
+        UpdateAccount UA = new UpdateAccount();
+        UA.show();
+        dispose();
+    }//GEN-LAST:event_btnUpdateAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,8 +168,8 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBookTruck;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnUpdateAccount;
+    private javax.swing.JButton btnViewOrders;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
