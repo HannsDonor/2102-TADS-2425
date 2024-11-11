@@ -6,8 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import HOME.LoadObjects;
 
 import HOME.Home;
+import HOME.SessionManager;
 
 public class Log_in_Frame extends javax.swing.JFrame {
 
@@ -106,12 +108,13 @@ public class Log_in_Frame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         edtUsername.setText("");
         edtPassword.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
 
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         String Username = edtUsername.getText();
         String Password = edtPassword.getText();
@@ -129,7 +132,9 @@ public class Log_in_Frame extends javax.swing.JFrame {
             ResultSet rs = pstmt.executeQuery();
             
             if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Welcome " + Username);
+                int UserID = rs.getInt("UserID");
+                JOptionPane.showMessageDialog(null, "Welcome " + Username + " UserID " + UserID);
+                SessionManager.getInstance().setUserID(UserID);
                 
                 Home home = new Home();
                 home.show();
@@ -142,8 +147,7 @@ public class Log_in_Frame extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Something is Wrong");
             e.printStackTrace();
-        }
-        
+        }  
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
