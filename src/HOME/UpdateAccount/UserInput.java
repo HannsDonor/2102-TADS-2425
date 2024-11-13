@@ -36,8 +36,8 @@ public class UserInput extends javax.swing.JFrame {
         edtPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         btnSaveChanges = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +47,7 @@ public class UserInput extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Username:");
+        jLabel1.setText("Current Username:");
 
         jLabel2.setText("New Username:");
 
@@ -60,9 +60,19 @@ public class UserInput extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Reset");
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Back");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,20 +84,23 @@ public class UserInput extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtOldUsername)
-                    .addComponent(edtNewUsername)
-                    .addComponent(edtPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSaveChanges)
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
-                .addGap(56, 56, 56))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(14, 14, 14))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSaveChanges)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(edtNewUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                .addComponent(edtPassword)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(edtOldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 36, Short.MAX_VALUE)
+                        .addComponent(btnBack)
+                        .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,9 +120,9 @@ public class UserInput extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaveChanges)
-                    .addComponent(jButton2))
+                    .addComponent(btnReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btnBack)
                 .addGap(17, 17, 17))
         );
 
@@ -133,40 +146,57 @@ public class UserInput extends javax.swing.JFrame {
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String getUsername = "SELECT Username FROM Users WHERE UserID = ?";
+            String getUsername = "SELECT Username, Password FROM Users WHERE UserID = ?";
             PreparedStatement pstmt = conn.prepareStatement(getUsername);
             pstmt.setInt(1, UserID);
             ResultSet rs = pstmt.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 String CurrentUsername = rs.getString("Username");
+                String CurrentPassword = rs.getString("Password");
+            
+            
+            if (OldUsername.equals(CurrentUsername)) {
                 
-                if(OldUsername.equals(CurrentUsername)){
+                if (Password.equals(CurrentPassword)) {
+                    
                     String sql = "UPDATE Users SET Username = ? WHERE UserID = ?";
                     PreparedStatement updstmt = conn.prepareStatement(sql);
-                     updstmt.setString(1, NewUsername);
-                     updstmt.setInt(2, UserID);
-                     
-                     int rowsUpdated = updstmt.executeUpdate();
-                     
-                     if(rowsUpdated > 0){
-                         JOptionPane.showMessageDialog(null, "Username Changed Successfull!");
-                     }else{
-                         JOptionPane.showMessageDialog(null, "Failed to updated Username!");
-                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Old Username does not Match!");
+                    updstmt.setString(1, NewUsername);
+                    updstmt.setInt(2, UserID);
+                    
+                    int rowsUpdated = updstmt.executeUpdate();
+                    
+                    if (rowsUpdated > 0) {
+                        JOptionPane.showMessageDialog(null, "Username changed successfully!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to update username!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect password!");
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Username does not exist!");                
+            } else {
+                JOptionPane.showMessageDialog(null, "Old username does not match!");
             }
-            
-        }catch(Exception e){
-            e.printStackTrace();
+        } else {
+            JOptionPane.showMessageDialog(null, "Username does not exist!");
         }
-        
-        
+    } catch (Exception e) {
+        e.printStackTrace();
+    } 
     }//GEN-LAST:event_btnSaveChangesActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        UpdateAccount UA = new UpdateAccount();
+        UA.show();
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        edtOldUsername.setText("");
+        edtNewUsername.setText("");
+        edtPassword.setText("");;
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,12 +234,12 @@ public class UserInput extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSaveChanges;
     private javax.swing.JTextField edtNewUsername;
     private javax.swing.JTextField edtOldUsername;
     private javax.swing.JPasswordField edtPassword;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
