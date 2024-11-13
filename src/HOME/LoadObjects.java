@@ -50,7 +50,7 @@ public class LoadObjects extends javax.swing.JFrame {
         btnUndoPackage = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnInsertTruck = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Objects_Table = new javax.swing.JTable();
         lblTotalWeight = new javax.swing.JLabel();
@@ -95,10 +95,10 @@ public class LoadObjects extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Back");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -128,7 +128,7 @@ public class LoadObjects extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnInsertTruck, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5))
+                        .addComponent(btnBack))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -172,14 +172,14 @@ public class LoadObjects extends javax.swing.JFrame {
                 .addComponent(btnUndoPackage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
+                    .addComponent(btnBack)
                     .addComponent(btnInsertTruck))
                 .addContainerGap())
         );
 
         Objects_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Package", "Quantity", "Weight"
@@ -307,9 +307,11 @@ public class LoadObjects extends javax.swing.JFrame {
         }                   
     }//GEN-LAST:event_btnInsertTruckActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-     
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        int UserID = SessionManager.getInstance().getUserID();
+        int TruckID = SessionManager.getInstance().getTruckID();
+        JOptionPane.showMessageDialog(null, "TruckID: " + TruckID + "UserID: " + UserID);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     public void TableToDBMS(){
         DefaultTableModel model = (DefaultTableModel)Objects_Table.getModel();
@@ -438,6 +440,7 @@ public class LoadObjects extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Objects_Table;
     private javax.swing.JButton btnAddPackage;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnInsertTruck;
     private javax.swing.JButton btnUndoPackage;
     private javax.swing.JTextField edtDropOff;
@@ -446,7 +449,6 @@ public class LoadObjects extends javax.swing.JFrame {
     private javax.swing.JTextField edtQuantity;
     private javax.swing.JTextField edtWeight;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

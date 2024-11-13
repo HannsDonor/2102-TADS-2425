@@ -184,6 +184,9 @@ public class UserInput extends javax.swing.JFrame {
     } catch (Exception e) {
         e.printStackTrace();
     } 
+        edtOldUsername.setText("");
+        edtNewUsername.setText("");
+        edtPassword.setText("");;
     }//GEN-LAST:event_btnSaveChangesActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

@@ -25,7 +25,7 @@ public class UpdateAccount extends javax.swing.JFrame {
 
         ChangeAccountName = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnDeleteAccount = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,7 +44,12 @@ public class UpdateAccount extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Delete Account");
+        btnDeleteAccount.setText("Delete Account");
+        btnDeleteAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteAccountActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +71,7 @@ public class UpdateAccount extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ChangeAccountName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -77,7 +82,7 @@ public class UpdateAccount extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnChangePassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(btnDeleteAccount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(16, 16, 16))
@@ -103,6 +108,12 @@ public class UpdateAccount extends javax.swing.JFrame {
         CP.show();
         dispose();
     }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void btnDeleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAccountActionPerformed
+        DeleteAccount DA = new DeleteAccount();
+        DA.show();
+        dispose();
+    }//GEN-LAST:event_btnDeleteAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +154,6 @@ public class UpdateAccount extends javax.swing.JFrame {
     private javax.swing.JButton ChangeAccountName;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnChangePassword;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnDeleteAccount;
     // End of variables declaration//GEN-END:variables
 }

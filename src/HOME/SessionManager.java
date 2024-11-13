@@ -23,7 +23,7 @@ public class SessionManager {
     }
      
      public void setTruckID(int truckID){
-         this.truckID = userID;
+         this.truckID = truckID;
      }
      
      public int getTruckID(){
