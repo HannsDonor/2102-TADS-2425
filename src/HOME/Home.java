@@ -114,6 +114,7 @@ public class Home extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         Log_in_Frame login = new Log_in_Frame();
+        SessionManager.getInstance().clearSession();
         login.show();
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed

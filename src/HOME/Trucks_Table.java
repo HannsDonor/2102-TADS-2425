@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 public class Trucks_Table extends javax.swing.JFrame {
 
     /**
@@ -139,17 +140,12 @@ public class Trucks_Table extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void setSize(String Size){
-        GTruckSize = Size;
-    } 
-    String GTruckSize;
-    
+  
     private void btnDisplayTrucksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayTrucksActionPerformed
         DefaultTableModel model = (DefaultTableModel)Trucks_Table.getModel();
         
         model.setRowCount(0);
-             
+        String TruckSize = SessionManager.getInstance().getTruckSize();
         
         String url = "jdbc:mysql://localhost:3306/mysql";
         String user = "root";
@@ -159,7 +155,7 @@ public class Trucks_Table extends javax.swing.JFrame {
             Connection conn = DriverManager.getConnection(url, user, pass); 
             String sql = "SELECT TruckID, TruckName, TruckSize, Capacity, Status FROM myproject.Trucks WHERE TruckSize = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, GTruckSize);
+            pstmt.setString(1, TruckSize);
             ResultSet rs = pstmt.executeQuery();
             
             while(rs.next()){
@@ -168,7 +164,9 @@ public class Trucks_Table extends javax.swing.JFrame {
                 double Capacity = rs.getDouble("Capacity");
                 String Status = rs.getString("Status");
                 int TruckID = rs.getInt("TruckID");
-                gTruckID = TruckID;
+                SessionManager.getInstance().setTruckID(TruckID);
+                SessionManager.getInstance().setCapacity(Capacity);
+                SessionManager.getInstance().setTruckName(TruckName);
                 
                 model.addRow(new Object[]{TruckName, Size, Capacity, Status});
             }
@@ -176,8 +174,7 @@ public class Trucks_Table extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnDisplayTrucksActionPerformed
-    
-    int gTruckID;
+
     
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         BookTruck BT = new BookTruck();
@@ -186,8 +183,10 @@ public class Trucks_Table extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmTruckActionPerformed
-        LoadObjects LO = new LoadObjects();
-        SessionManager.getInstance().setTruckID(gTruckID);
+        String TruckName = SessionManager.getInstance().getTruckName();
+        double Capacity = SessionManager.getInstance().getCapacity();
+        LoadObjects LO = new LoadObjects(TruckName, Capacity);
+        SessionManager.getInstance().display();
         LO.show();
         dispose();
     }//GEN-LAST:event_btnConfirmTruckActionPerformed

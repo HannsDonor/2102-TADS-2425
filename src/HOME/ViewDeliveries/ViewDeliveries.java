@@ -41,6 +41,9 @@ public class ViewDeliveries extends javax.swing.JFrame {
         DisplayDeliveries = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        CancelDelivery = new javax.swing.JButton();
+        strEnterTruckID = new javax.swing.JLabel();
+        edtCancelTruckID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,14 +52,14 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Package", "Quantity", "Status", "Delivery Address"
+                "Package", "Quantity", "Status", "Delivery Address", "TruckID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,6 +76,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
             ViewDeliveries.getColumnModel().getColumn(1).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(2).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(3).setResizable(false);
+            ViewDeliveries.getColumnModel().getColumn(4).setResizable(false);
         }
 
         DisplayDeliveries.setText("View Delivery Status");
@@ -83,6 +87,11 @@ public class ViewDeliveries extends javax.swing.JFrame {
         });
 
         jButton2.setText("View Completed Deliveries");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -91,24 +100,34 @@ public class ViewDeliveries extends javax.swing.JFrame {
             }
         });
 
+        CancelDelivery.setText("Cancel Delivery");
+        CancelDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelDeliveryActionPerformed(evt);
+            }
+        });
+
+        strEnterTruckID.setText("Enter Truck ID:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(DisplayDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBack)
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(DisplayDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CancelDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(strEnterTruckID)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(edtCancelTruckID)))
+                    .addComponent(btnBack))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,6 +141,12 @@ public class ViewDeliveries extends javax.swing.JFrame {
                         .addComponent(DisplayDeliveries)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
+                        .addGap(91, 91, 91)
+                        .addComponent(CancelDelivery)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(strEnterTruckID)
+                            .addComponent(edtCancelTruckID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack)))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -133,6 +158,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
     String user = "root";
     String pass = "";
     
+    
     private void DisplayDeliveriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayDeliveriesActionPerformed
         DefaultTableModel model = (DefaultTableModel)ViewDeliveries.getModel();
         
@@ -142,7 +168,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "SELECT Package.Packagename, Package.Quantity, Deliveries.Status, Deliveries.DropOffAddress FROM Package INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID WHERE Package.UserID = ?";
+            String sql = "SELECT Package.Packagename, Package.Quantity, Deliveries.Status, Deliveries.DropOffAddress, Trucks.TruckID FROM Package INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID INNER JOIN Trucks ON Deliveries.TruckID = Trucks.TruckID WHERE Package.UserID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, UserID);
             ResultSet rs = pstmt.executeQuery();
@@ -152,20 +178,77 @@ public class ViewDeliveries extends javax.swing.JFrame {
                 int Quantity = rs.getInt("Quantity");
                 String Status = rs.getString("Status");
                 String DeliveryAddress = rs.getString("DropOffAddress");
+                int TruckID = rs.getInt("TruckID");
                 
-                model.addRow(new Object[]{PackageName, Quantity, Status, DeliveryAddress});
+                model.addRow(new Object[]{PackageName, Quantity, Status, DeliveryAddress, TruckID});
             }
         }catch(Exception e){
             e.printStackTrace();
         }
         
     }//GEN-LAST:event_DisplayDeliveriesActionPerformed
-
+    
+    
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
       Home H = new Home();
       H.show();
       dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    
+    private void CancelDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelDeliveryActionPerformed
+        String TruckIDText = edtCancelTruckID.getText().trim();
+        
+        if(TruckIDText.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please fill all the text fields");
+            return;
+        }
+        
+        int TruckID = Integer.parseInt(TruckIDText);
+        int UserID = SessionManager.getInstance().getUserID();
+        
+        try{
+        Connection conn = DriverManager.getConnection(url, user, pass);
+        String checkStatusQuery = "SELECT Status FROM Deliveries WHERE TruckID = ? AND UserID = ?";
+        PreparedStatement checkStmt = conn.prepareStatement(checkStatusQuery);
+        checkStmt.setInt(1, TruckID);
+        checkStmt.setInt(2, UserID);
+        
+        ResultSet rs = checkStmt.executeQuery();
+        
+        if (rs.next()) {
+            String currentStatus = rs.getString("Status");
+            
+            if ("Cancelled".equals(currentStatus)) {
+                JOptionPane.showMessageDialog(null, "This delivery has already been cancelled.");
+                return;
+            }
+        }
+        }catch(Exception e){
+                e.printStackTrace();
+                }
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String CancelStmt = "UPDATE Deliveries SET Status = 'Cancelled' WHERE TruckID = ? AND UserID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(CancelStmt);
+            pstmt.setInt(1, TruckID);
+            pstmt.setInt(2, UserID);
+            int rowsAffected = pstmt.executeUpdate();
+            
+            if(rowsAffected > 0){
+                JOptionPane.showMessageDialog(null, "Cancelled Successfully!");
+                edtCancelTruckID.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Something went Wrong");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_CancelDeliveryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,10 +286,13 @@ public class ViewDeliveries extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelDelivery;
     private javax.swing.JButton DisplayDeliveries;
     private javax.swing.JTable ViewDeliveries;
     private javax.swing.JButton btnBack;
+    private javax.swing.JTextField edtCancelTruckID;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel strEnterTruckID;
     // End of variables declaration//GEN-END:variables
 }

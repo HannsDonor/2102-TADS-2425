@@ -21,8 +21,10 @@ public class LoadObjects extends javax.swing.JFrame {
     /**
      * Creates new form LoadObjects
      */
-    public LoadObjects() {
+    public LoadObjects(String TruckName, double Capacity) {
         initComponents();
+        lblTruckName.setText(TruckName);
+        lblCapacity.setText(String.valueOf(Capacity) + " KG");
     }
 
     /**
@@ -54,6 +56,10 @@ public class LoadObjects extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Objects_Table = new javax.swing.JTable();
         lblTotalWeight = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblTruckName = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblCapacity = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,7 +176,7 @@ public class LoadObjects extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUndoPackage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnInsertTruck))
@@ -205,35 +211,53 @@ public class LoadObjects extends javax.swing.JFrame {
             Objects_Table.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        lblTotalWeight.setText("TOTAL WEIGHT:");
+        jLabel7.setText("Truck:");
+
+        jLabel8.setText("Capacity:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTotalWeight)
+                .addGap(113, 113, 113))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
-                        .addComponent(lblTotalWeight)
-                        .addGap(113, 113, 113))))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTruckName, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTruckName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(lblCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
@@ -247,7 +271,7 @@ public class LoadObjects extends javax.swing.JFrame {
         
     //THIS AREA STORES THE ADDED ROW INCASE OF UNDO
     private Object[] LastAddedRow = null;
-
+    
     // USE THIS TO DISPLAY THE TOTAL OF WHOLE TABLE PACKAGE WEIGHT
     private void btnAddPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPackageActionPerformed
     DefaultTableModel model = (DefaultTableModel)Objects_Table.getModel();
@@ -266,8 +290,11 @@ public class LoadObjects extends javax.swing.JFrame {
     int Quantity = Integer.parseInt(edtQuantity.getText());
     double Weight = Double.parseDouble(edtWeight.getText());
     
-    
+    double currentTotalWeight = 0;
     double TotalWeight = Quantity * Weight;
+    currentTotalWeight += TotalWeight;
+    lblTotalWeight.setText("Total Weight: " + currentTotalWeight + " kg");
+    
     
     Object[] rowData = {PackageName, Quantity, TotalWeight};
     model.insertRow(0, rowData);
@@ -302,15 +329,17 @@ public class LoadObjects extends javax.swing.JFrame {
                      "CONFIRM", 
                      JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.YES_OPTION){
-            TableToDBMS();
-           
+            TableToDBMS(); 
+            Home home = new Home();
+            home.show();
+            dispose();
         }                   
     }//GEN-LAST:event_btnInsertTruckActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         int UserID = SessionManager.getInstance().getUserID();
         int TruckID = SessionManager.getInstance().getTruckID();
-        JOptionPane.showMessageDialog(null, "TruckID: " + TruckID + "UserID: " + UserID);
+        JOptionPane.showMessageDialog(null, "TruckName: " + SessionManager.getInstance().getTruckName() + "Capacity: " + SessionManager.getInstance().getCapacity());
     }//GEN-LAST:event_btnBackActionPerformed
 
     public void TableToDBMS(){
@@ -432,7 +461,9 @@ public class LoadObjects extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoadObjects().setVisible(true);
+                String TruckName = SessionManager.getInstance().getTruckName();
+                double Capacity = SessionManager.getInstance().getCapacity();
+                new LoadObjects(TruckName, Capacity).setVisible(true);
             }
         });
     }
@@ -455,8 +486,12 @@ public class LoadObjects extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCapacity;
     private javax.swing.JLabel lblTotalWeight;
+    private javax.swing.JLabel lblTruckName;
     // End of variables declaration//GEN-END:variables
 }

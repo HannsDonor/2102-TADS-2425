@@ -24,6 +24,9 @@ public class Create_Account extends javax.swing.JFrame {
         edtConfirmPassword = new javax.swing.JPasswordField();
         btnCreate = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        btnShowPass2 = new javax.swing.JRadioButton();
+        btnShowPass = new javax.swing.JRadioButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -54,6 +57,27 @@ public class Create_Account extends javax.swing.JFrame {
             }
         });
 
+        btnShowPass2.setText("Show Password");
+        btnShowPass2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowPass2ActionPerformed(evt);
+            }
+        });
+
+        btnShowPass.setText("Show Password");
+        btnShowPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowPassActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,7 +97,15 @@ public class Create_Account extends javax.swing.JFrame {
                     .addComponent(edtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(edtUsername, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(edtConfirmPassword))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnShowPass2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnShowPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,16 +117,21 @@ public class Create_Account extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowPass))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(edtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(edtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnShowPass2)))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnReset))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -132,7 +169,7 @@ public class Create_Account extends javax.swing.JFrame {
         }
         return isDupe;
     }
-    
+    Log_in_Frame LIF = new Log_in_Frame();
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String Username = edtUsername.getText();
         String Password = edtPassword.getText();
@@ -160,14 +197,39 @@ public class Create_Account extends javax.swing.JFrame {
                         edtUsername.setText("");
                         edtPassword.setText("");
                         edtConfirmPassword.setText("");
+                        
+                        LIF.show();
+                        dispose();
                     }
             
-        }catch(Exception E){
-            
+        }catch(Exception e){
+            e.printStackTrace();
         }
             }
         } 
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowPassActionPerformed
+        if(edtPassword.getEchoChar() == (char) 0){
+            edtPassword.setEchoChar('*');
+        } else {
+            edtPassword.setEchoChar((char) 0);
+        }
+    }//GEN-LAST:event_btnShowPassActionPerformed
+
+    private void btnShowPass2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowPass2ActionPerformed
+        if(edtConfirmPassword.getEchoChar() == (char) 0){
+            edtConfirmPassword.setEchoChar('*');
+        } else {
+            edtConfirmPassword.setEchoChar((char) 0);
+        }
+    }//GEN-LAST:event_btnShowPass2ActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+       
+       LIF.show();
+       dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,8 +267,11 @@ public class Create_Account extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnReset;
+    private javax.swing.JRadioButton btnShowPass;
+    private javax.swing.JRadioButton btnShowPass2;
     private javax.swing.JPasswordField edtConfirmPassword;
     private javax.swing.JPasswordField edtPassword;
     private javax.swing.JTextField edtUsername;
