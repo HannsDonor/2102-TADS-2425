@@ -8,6 +8,7 @@ public class SessionManager {
     private double capacity;
     private String TruckName;
     private String TruckSize;
+    private String TruckStatus;
     
     private SessionManager() {}
     
@@ -55,6 +56,14 @@ public class SessionManager {
      
      public String getTruckSize(){
          return this.TruckSize;
+     }
+     
+     public void setTruckStatus(String Status){
+         this.TruckStatus = Status;
+     }
+     
+     public String getTruckStatus(){
+         return this.TruckStatus;
      }
      
      public void clearSession() {

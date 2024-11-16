@@ -153,6 +153,7 @@ public class DeleteAccount extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+        
     }//GEN-LAST:event_btnDeleteAccountActionPerformed
 
     public static void main(String args[]) {

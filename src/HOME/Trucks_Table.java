@@ -140,16 +140,15 @@ public class Trucks_Table extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  
+        String url = "jdbc:mysql://localhost:3306/mysql";
+        String user = "root";
+        String pass = "";
+        
     private void btnDisplayTrucksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayTrucksActionPerformed
         DefaultTableModel model = (DefaultTableModel)Trucks_Table.getModel();
         
         model.setRowCount(0);
         String TruckSize = SessionManager.getInstance().getTruckSize();
-        
-        String url = "jdbc:mysql://localhost:3306/mysql";
-        String user = "root";
-        String pass = "";
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass); 
@@ -167,6 +166,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                 SessionManager.getInstance().setTruckID(TruckID);
                 SessionManager.getInstance().setCapacity(Capacity);
                 SessionManager.getInstance().setTruckName(TruckName);
+                SessionManager.getInstance().setTruckStatus(Status);
                 
                 model.addRow(new Object[]{TruckName, Size, Capacity, Status});
             }
@@ -185,6 +185,15 @@ public class Trucks_Table extends javax.swing.JFrame {
     private void btnConfirmTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmTruckActionPerformed
         String TruckName = SessionManager.getInstance().getTruckName();
         double Capacity = SessionManager.getInstance().getCapacity();
+        int TruckID = SessionManager.getInstance().getTruckID();
+        int SelectedTruckID = SessionManager.getInstance().getTruckID();
+        String TruckStatus = SessionManager.getInstance().getTruckStatus();
+        
+        if(SelectedTruckID == TruckID && "In Service".equals(TruckStatus)){
+            JOptionPane.showMessageDialog(null, "Truck not Available!");
+            return;
+        }
+        
         LoadObjects LO = new LoadObjects(TruckName, Capacity);
         SessionManager.getInstance().display();
         LO.show();

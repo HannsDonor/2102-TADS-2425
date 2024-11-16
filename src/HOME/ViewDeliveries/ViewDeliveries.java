@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import HOME.SessionManager;
 import HOME.Home;
+import HOME.LoadObjects;
 
 /**
  *
@@ -230,7 +231,9 @@ public class ViewDeliveries extends javax.swing.JFrame {
         }
         }catch(Exception e){
                 e.printStackTrace();
-                }
+        }
+        
+        //UPDATE DELIVERIES TABLE
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
             String CancelStmt = "UPDATE Deliveries SET Status = 'Cancelled' WHERE TruckID = ? AND UserID = ?";
@@ -248,8 +251,32 @@ public class ViewDeliveries extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+        //UPDATE TRUCK STATUS TO AVAILABLE
+        int lTruckID = SessionManager.getInstance().getTruckID();
+        LoadObjects LO = new LoadObjects();
+        LO.UpdateTruckStatus("Available", lTruckID);
+        
     }//GEN-LAST:event_CancelDeliveryActionPerformed
 
+    /*public void setTruckStatus(){
+        try{
+            
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String updateTruckStatus = "UPDATE Trucks SET Status = Available WHERE UserID = ?";
+            PreparedStatement updateStatement = conn.prepareStatement(updateTruckStatus);
+            updateStatement.setInt(1, lTruckID);
+            int affectedRows = updateStatement.executeUpdate();
+            
+            if(affectedRows > 0){
+                JOptionPane.showMessageDialog(null, "Truck Status Updated!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Something went wrong");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    */
     /**
      * @param args the command line arguments
      */

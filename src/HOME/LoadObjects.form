@@ -72,7 +72,6 @@
                       <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="lblTotalWeight" min="-2" pref="22" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
           </Group>

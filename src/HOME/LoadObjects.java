@@ -21,11 +21,16 @@ public class LoadObjects extends javax.swing.JFrame {
     /**
      * Creates new form LoadObjects
      */
+    public LoadObjects(){
+        initComponents();
+    }
+    
     public LoadObjects(String TruckName, double Capacity) {
         initComponents();
         lblTruckName.setText(TruckName);
         lblCapacity.setText(String.valueOf(Capacity) + " KG");
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
