@@ -55,7 +55,7 @@ public class LoadObjects extends javax.swing.JFrame {
         edtQuantity = new javax.swing.JTextField();
         btnAddPackage = new javax.swing.JButton();
         btnUndoPackage = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         btnInsertTruck = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -97,7 +97,12 @@ public class LoadObjects extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Reset");
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         btnInsertTruck.setText("Insert Truck");
         btnInsertTruck.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +139,7 @@ public class LoadObjects extends javax.swing.JFrame {
                             .addComponent(btnAddPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(4, 4, 4)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
+                            .addComponent(btnReset)
                             .addComponent(edtQuantity)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnInsertTruck, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +183,7 @@ public class LoadObjects extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddPackage)
-                    .addComponent(jButton3))
+                    .addComponent(btnReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUndoPackage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
@@ -193,7 +198,7 @@ public class LoadObjects extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Package", "Quantity", "Weight"
+                "Package", "Quantity", "Weight/KG"
             }
         ) {
             Class[] types = new Class [] {
@@ -262,7 +267,6 @@ public class LoadObjects extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
@@ -280,9 +284,10 @@ public class LoadObjects extends javax.swing.JFrame {
     // USE THIS TO DISPLAY THE TOTAL OF WHOLE TABLE PACKAGE WEIGHT
     private void btnAddPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPackageActionPerformed
     DefaultTableModel model = (DefaultTableModel)Objects_Table.getModel();
+    double Capacity = SessionManager.getInstance().getCapacity();
     
     if(model.getRowCount() >= 20){
-        JOptionPane.showMessageDialog(null, "This Truck Can only Carry 20 rows");
+        JOptionPane.showMessageDialog(null, "Truck Can only Carry 20 rows");
         return;
     }
     
@@ -298,6 +303,12 @@ public class LoadObjects extends javax.swing.JFrame {
     double currentTotalWeight = 0;
     double TotalWeight = Quantity * Weight;
     currentTotalWeight += TotalWeight;
+    
+    if(currentTotalWeight > Capacity){
+        JOptionPane.showMessageDialog(null, "Exceeded Max Truck Capacity! MAX CAPACITY : " + Capacity);
+        return;
+    }
+      
     lblTotalWeight.setText("Total Weight: " + currentTotalWeight + " kg");
     
     
@@ -342,10 +353,22 @@ public class LoadObjects extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsertTruckActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        int UserID = SessionManager.getInstance().getUserID();
-        int TruckID = SessionManager.getInstance().getTruckID();
-        JOptionPane.showMessageDialog(null, "TruckName: " + SessionManager.getInstance().getTruckName() + "Capacity: " + SessionManager.getInstance().getCapacity());
+      int result = JOptionPane.showConfirmDialog(null,
+                                    "Back to Truck Table?",
+                                    "CONFIRM",
+                                    JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){     
+        Trucks_Table TT = new Trucks_Table();
+        TT.show();
+        dispose();
+        }
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        edtPackageName.setText("");
+        edtWeight.setText("");
+        edtQuantity.setText("");
+    }//GEN-LAST:event_btnResetActionPerformed
 
     public void TableToDBMS(){
         DefaultTableModel model = (DefaultTableModel)Objects_Table.getModel();
@@ -367,16 +390,8 @@ public class LoadObjects extends javax.swing.JFrame {
             UpdateTruckStatus("In Service", TruckID);
         }
     }
-    
-    public void test1(String PackageName, int Quantity, double Weight, int gUserID, int gTruckID){
-        System.out.print(" PackageName: " + PackageName);
-        System.out.println("Quantity: " + Quantity);
-        System.out.println("Weight: " + Weight);
-        System.out.println("UserID: " + gUserID);
-        System.out.println("TruckID :" + gTruckID);
-    }
-    
-    
+
+       
     public void TransferToDBMS(String PackageName, double Weight, int Quantity, int UserID, int TruckID){
         
         try{
@@ -390,11 +405,6 @@ public class LoadObjects extends javax.swing.JFrame {
             pstmt.setInt(4, UserID);
             pstmt.setInt(5, TruckID);
             int rowsAffected = pstmt.executeUpdate();
-            if(rowsAffected > 0){
-                JOptionPane.showMessageDialog(null, PackageName + Weight + Quantity + UserID + TruckID);
-            }else{
-                JOptionPane.showMessageDialog(null, "Failed To Add Package");
-            }
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -402,6 +412,7 @@ public class LoadObjects extends javax.swing.JFrame {
         
     public void Deliveries(String PickUp, String DropOff, String Status, int TruckID, int UserID){
          
+        //CHECK DUPLICATE
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
             String sql = "INSERT INTO Deliveries (PickUpAddress, DropOffAddress, Status, TruckID, UserID)"
@@ -413,13 +424,11 @@ public class LoadObjects extends javax.swing.JFrame {
             pstmt.setInt(4, TruckID);
             pstmt.setInt(5, UserID);
             int rowsAffected = pstmt.executeUpdate();
-            
-            if(rowsAffected > 0){
-                JOptionPane.showMessageDialog(null, "Ready to Deliver");
-            }
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+        JOptionPane.showMessageDialog(null, "Ready To Deliver!");
     }
     
     public void UpdateTruckStatus(String Status, int TruckID){
@@ -478,13 +487,13 @@ public class LoadObjects extends javax.swing.JFrame {
     private javax.swing.JButton btnAddPackage;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnInsertTruck;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnUndoPackage;
     private javax.swing.JTextField edtDropOff;
     private javax.swing.JTextField edtPackageName;
     private javax.swing.JTextField edtPickUp;
     private javax.swing.JTextField edtQuantity;
     private javax.swing.JTextField edtWeight;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

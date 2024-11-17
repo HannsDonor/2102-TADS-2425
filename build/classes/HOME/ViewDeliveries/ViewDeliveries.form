@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="DisplayDeliveries" max="32767" attributes="0"/>
-                      <Component id="jButton2" max="32767" attributes="0"/>
+                      <Component id="btnDisplayCancelDeliveries" max="32767" attributes="0"/>
                       <Component id="CancelDelivery" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="strEnterTruckID" min="-2" max="-2" attributes="0"/>
@@ -39,7 +39,7 @@
                   <Component id="btnBack" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="519" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="546" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -56,7 +56,7 @@
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="DisplayDeliveries" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnDisplayCancelDeliveries" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                       <Component id="CancelDelivery" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -85,11 +85,11 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
-                <Column editable="false" title="Package" type="java.lang.String"/>
-                <Column editable="false" title="Quantity" type="java.lang.Integer"/>
-                <Column editable="false" title="Status" type="java.lang.String"/>
-                <Column editable="false" title="Delivery Address" type="java.lang.String"/>
                 <Column editable="false" title="TruckID" type="java.lang.Integer"/>
+                <Column editable="false" title="Package" type="java.lang.String"/>
+                <Column editable="false" title="Status" type="java.lang.String"/>
+                <Column editable="false" title="Quantity" type="java.lang.Integer"/>
+                <Column editable="false" title="Delivery Address" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -136,12 +136,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DisplayDeliveriesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnDisplayCancelDeliveries">
       <Properties>
-        <Property name="text" type="java.lang.String" value="View Completed Deliveries"/>
+        <Property name="text" type="java.lang.String" value="Cancelled Deliveries"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDisplayCancelDeliveriesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnBack">

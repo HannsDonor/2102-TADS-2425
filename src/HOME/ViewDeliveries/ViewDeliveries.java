@@ -40,7 +40,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ViewDeliveries = new javax.swing.JTable();
         DisplayDeliveries = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDisplayCancelDeliveries = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         CancelDelivery = new javax.swing.JButton();
         strEnterTruckID = new javax.swing.JLabel();
@@ -53,11 +53,11 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Package", "Quantity", "Status", "Delivery Address", "TruckID"
+                "TruckID", "Package", "Status", "Quantity", "Delivery Address"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -87,10 +87,10 @@ public class ViewDeliveries extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("View Completed Deliveries");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDisplayCancelDeliveries.setText("Cancelled Deliveries");
+        btnDisplayCancelDeliveries.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDisplayCancelDeliveriesActionPerformed(evt);
             }
         });
 
@@ -119,7 +119,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(DisplayDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDisplayCancelDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CancelDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(strEnterTruckID)
@@ -127,7 +127,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
                             .addComponent(edtCancelTruckID)))
                     .addComponent(btnBack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,7 +141,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(DisplayDeliveries)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnDisplayCancelDeliveries)
                         .addGap(91, 91, 91)
                         .addComponent(CancelDelivery)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -169,7 +169,17 @@ public class ViewDeliveries extends javax.swing.JFrame {
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "SELECT Package.Packagename, Package.Quantity, Deliveries.Status, Deliveries.DropOffAddress, Trucks.TruckID FROM Package INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID INNER JOIN Trucks ON Deliveries.TruckID = Trucks.TruckID WHERE Package.UserID = ?";
+            String sql = "SELECT DISTINCT \n" +
+                         "    Package.Packagename, \n" +
+                         "    Package.Quantity, \n" +
+                         "    Deliveries.Status, \n" +
+                         "    Deliveries.DropOffAddress, \n" +
+                         "    Trucks.TruckID \n" +
+                         "FROM Package\n" +
+                         "INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID\n" +
+                         "INNER JOIN Trucks ON Deliveries.TruckID = Trucks.TruckID\n" +
+                         "WHERE Package.UserID = ? \n" +
+                         "AND Deliveries.Status = 'Out for Delivery';";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, UserID);
             ResultSet rs = pstmt.executeQuery();
@@ -181,24 +191,62 @@ public class ViewDeliveries extends javax.swing.JFrame {
                 String DeliveryAddress = rs.getString("DropOffAddress");
                 int TruckID = rs.getInt("TruckID");
                 
-                model.addRow(new Object[]{PackageName, Quantity, Status, DeliveryAddress, TruckID});
+                model.addRow(new Object[]{ TruckID, PackageName, Quantity, Status, DeliveryAddress});
             }
         }catch(Exception e){
             e.printStackTrace();
-        }
-        
+        }      
     }//GEN-LAST:event_DisplayDeliveriesActionPerformed
-    
-    
+  
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
       Home H = new Home();
       H.show();
       dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnDisplayCancelDeliveriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayCancelDeliveriesActionPerformed
+    DefaultTableModel model = (DefaultTableModel) ViewDeliveries.getModel();
+    model.setRowCount(0);
+
+    int UserID = SessionManager.getInstance().getUserID();
+    
+    try {
+
+        Connection conn = DriverManager.getConnection(url, user, pass);
+        
+        String sql = "SELECT DISTINCT \n" +
+                     "    Package.Packagename, \n" +
+                     "    Package.Quantity, \n" +
+                     "    Deliveries.Status, \n" +
+                     "    Deliveries.DropOffAddress, \n" +
+                     "    Trucks.TruckID \n" +
+                     "FROM Package\n" +
+                     "INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID\n" +
+                     "INNER JOIN Trucks ON Deliveries.TruckID = Trucks.TruckID\n" +
+                     "WHERE Package.UserID = ? \n" +
+                     "AND Deliveries.Status = 'Cancelled';";
+
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, UserID);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            String PackageName = rs.getString("Packagename");
+            int Quantity = rs.getInt("Quantity");
+            String Status = rs.getString("Status");
+            String DeliveryAddress = rs.getString("DropOffAddress");
+            int TruckID = rs.getInt("TruckID");
+            
+
+            model.addRow(new Object[]{ TruckID, PackageName, Quantity, Status, DeliveryAddress});
+        }
+        
+    } catch (Exception e) {
+
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error retrieving cancelled deliveries: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnDisplayCancelDeliveriesActionPerformed
     
     
     private void CancelDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelDeliveryActionPerformed
@@ -220,23 +268,20 @@ public class ViewDeliveries extends javax.swing.JFrame {
         checkStmt.setInt(2, UserID);
         
         ResultSet rs = checkStmt.executeQuery();
-        
-        if (rs.next()) {
-            String currentStatus = rs.getString("Status");
-            
-            if ("Cancelled".equals(currentStatus)) {
-                JOptionPane.showMessageDialog(null, "This delivery has already been cancelled.");
-                return;
-            }
-        }
+
         }catch(Exception e){
                 e.printStackTrace();
         }
         
+        System.out.print(UserID + "  " + TruckID);
         //UPDATE DELIVERIES TABLE
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String CancelStmt = "UPDATE Deliveries SET Status = 'Cancelled' WHERE TruckID = ? AND UserID = ?";
+            String CancelStmt = "UPDATE Deliveries \n" +
+                                "SET Status = 'Cancelled' \n" +
+                                "WHERE TruckID = ? \n" +
+                                "  AND UserID = ? \n" +
+                                "  AND Status = 'Out for Delivery';";
             PreparedStatement pstmt = conn.prepareStatement(CancelStmt);
             pstmt.setInt(1, TruckID);
             pstmt.setInt(2, UserID);
@@ -246,37 +291,17 @@ public class ViewDeliveries extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Cancelled Successfully!");
                 edtCancelTruckID.setText("");
             }else{
-                JOptionPane.showMessageDialog(null, "Something went Wrong");
+                JOptionPane.showMessageDialog(null, "Truck Not Found");
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-        //UPDATE TRUCK STATUS TO AVAILABLE
-        int lTruckID = SessionManager.getInstance().getTruckID();
-        LoadObjects LO = new LoadObjects();
-        LO.UpdateTruckStatus("Available", lTruckID);
+            int lTruckID = SessionManager.getInstance().getTruckID();
+            LoadObjects LO = new LoadObjects();
+            LO.UpdateTruckStatus("Available", lTruckID);
         
     }//GEN-LAST:event_CancelDeliveryActionPerformed
 
-    /*public void setTruckStatus(){
-        try{
-            
-            Connection conn = DriverManager.getConnection(url, user, pass);
-            String updateTruckStatus = "UPDATE Trucks SET Status = Available WHERE UserID = ?";
-            PreparedStatement updateStatement = conn.prepareStatement(updateTruckStatus);
-            updateStatement.setInt(1, lTruckID);
-            int affectedRows = updateStatement.executeUpdate();
-            
-            if(affectedRows > 0){
-                JOptionPane.showMessageDialog(null, "Truck Status Updated!");
-            }else{
-                JOptionPane.showMessageDialog(null, "Something went wrong");
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    */
     /**
      * @param args the command line arguments
      */
@@ -317,8 +342,8 @@ public class ViewDeliveries extends javax.swing.JFrame {
     private javax.swing.JButton DisplayDeliveries;
     private javax.swing.JTable ViewDeliveries;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDisplayCancelDeliveries;
     private javax.swing.JTextField edtCancelTruckID;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel strEnterTruckID;
     // End of variables declaration//GEN-END:variables

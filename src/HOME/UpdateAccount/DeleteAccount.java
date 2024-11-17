@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import HOME.SessionManager;
-
+import LoginFrames.Log_in_Frame;
 public class DeleteAccount extends javax.swing.JFrame {
 
     public DeleteAccount() {
@@ -134,6 +134,9 @@ public class DeleteAccount extends javax.swing.JFrame {
                         
                         if(rowsAffected > 0){
                             JOptionPane.showMessageDialog(null, "Account Deleted Successfully!");
+                            Log_in_Frame LOF = new Log_in_Frame();
+                            LOF.show();
+                            dispose();
                         }else{
                             JOptionPane.showMessageDialog(null, "Failed to delete Account!");
                         }

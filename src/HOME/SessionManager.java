@@ -73,7 +73,10 @@ public class SessionManager {
         this.TruckName = "";
      }
      
-    
+     public void resetTruckID(){
+         this.truckID = 0;
+     }
+     
      public void display(){
          System.out.println("TruckID : " + this.truckID);
          System.out.println("TruckName : " + this.TruckName);

@@ -26,7 +26,7 @@ public class Trucks_Table extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Trucks_Table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        edtTruckName = new javax.swing.JTextField();
+        edtTruckID = new javax.swing.JTextField();
         btnConfirmTruck = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnDisplayTrucks = new javax.swing.JButton();
@@ -41,11 +41,11 @@ public class Trucks_Table extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Truck Name", "Truck Size", "Capacity", "Status"
+                "Truck ID", "Truck Size", "Capacity/KG", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -59,6 +59,15 @@ public class Trucks_Table extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Trucks_Table.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Trucks_TableAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane1.setViewportView(Trucks_Table);
         if (Trucks_Table.getColumnModel().getColumnCount() > 0) {
             Trucks_Table.getColumnModel().getColumn(0).setResizable(false);
@@ -69,7 +78,12 @@ public class Trucks_Table extends javax.swing.JFrame {
 
         jLabel1.setText("Pick Truck");
 
-        edtTruckName.setText("Truck Name");
+        edtTruckID.setText("Truck ID");
+        edtTruckID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtTruckIDActionPerformed(evt);
+            }
+        });
 
         btnConfirmTruck.setText("Confirm");
         btnConfirmTruck.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +115,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edtTruckName)
+                            .addComponent(edtTruckID)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -127,7 +141,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                         .addGap(56, 56, 56)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtTruckName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(edtTruckID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnConfirmTruck)
@@ -168,7 +182,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                 SessionManager.getInstance().setTruckName(TruckName);
                 SessionManager.getInstance().setTruckStatus(Status);
                 
-                model.addRow(new Object[]{TruckName, Size, Capacity, Status});
+                model.addRow(new Object[]{TruckID, Size, Capacity, Status});
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -177,6 +191,7 @@ public class Trucks_Table extends javax.swing.JFrame {
 
     
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        SessionManager.getInstance().resetTruckID();
         BookTruck BT = new BookTruck();
         BT.show();
         dispose();
@@ -186,12 +201,31 @@ public class Trucks_Table extends javax.swing.JFrame {
         String TruckName = SessionManager.getInstance().getTruckName();
         double Capacity = SessionManager.getInstance().getCapacity();
         int TruckID = SessionManager.getInstance().getTruckID();
-        int SelectedTruckID = SessionManager.getInstance().getTruckID();
         String TruckStatus = SessionManager.getInstance().getTruckStatus();
+        String TruckSize = SessionManager.getInstance().getTruckSize();
+        int SelectedTruckID = Integer.parseInt(edtTruckID.getText());
         
-        if(SelectedTruckID == TruckID && "In Service".equals(TruckStatus)){
-            JOptionPane.showMessageDialog(null, "Truck not Available!");
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String checkTruck = "SELECT Status FROM myproject.Trucks WHERE TruckSize = ? AND TruckID = ?";
+            PreparedStatement checkpstmt = conn.prepareStatement(checkTruck);
+            checkpstmt.setString(1, TruckSize);
+            checkpstmt.setInt(2, SelectedTruckID);
+            ResultSet rs = checkpstmt.executeQuery();
+            
+            if (!rs.next()) {
+            JOptionPane.showMessageDialog(null, "Truck not Found");
             return;
+            }
+            
+            String TruckStatusFromDB = rs.getString("Status");
+            if("In Service".equals(TruckStatusFromDB)){
+                JOptionPane.showMessageDialog(null, "Truck not Available");
+                return;
+            } 
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
         
         LoadObjects LO = new LoadObjects(TruckName, Capacity);
@@ -199,6 +233,14 @@ public class Trucks_Table extends javax.swing.JFrame {
         LO.show();
         dispose();
     }//GEN-LAST:event_btnConfirmTruckActionPerformed
+
+    private void Trucks_TableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Trucks_TableAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Trucks_TableAncestorAdded
+
+    private void edtTruckIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtTruckIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtTruckIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,13 +276,12 @@ public class Trucks_Table extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Trucks_Table;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnConfirmTruck;
     private javax.swing.JButton btnDisplayTrucks;
-    private javax.swing.JTextField edtTruckName;
+    private javax.swing.JTextField edtTruckID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
