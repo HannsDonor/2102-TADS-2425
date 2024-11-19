@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import HOME.SessionManager;
+import LoginFrames.Log_in_Frame;
 
 public class ChangePassword extends javax.swing.JFrame {
 
@@ -191,6 +192,9 @@ public class ChangePassword extends javax.swing.JFrame {
                int rowsAffected = updateStmt.executeUpdate();
                     if(rowsAffected > 0){
                         JOptionPane.showMessageDialog(null, "Saved Changes!");
+                        Log_in_Frame LOF = new Log_in_Frame();
+                        LOF.show();
+                        dispose();
                     }else{
                         JOptionPane.showMessageDialog(null, "Failed to update Password!");
                     }

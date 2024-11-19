@@ -177,10 +177,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                 double Capacity = rs.getDouble("Capacity");
                 String Status = rs.getString("Status");
                 int TruckID = rs.getInt("TruckID");
-                SessionManager.getInstance().setTruckID(TruckID);
-                SessionManager.getInstance().setCapacity(Capacity);
-                SessionManager.getInstance().setTruckName(TruckName);
-                SessionManager.getInstance().setTruckStatus(Status);
+
                 
                 model.addRow(new Object[]{TruckID, Size, Capacity, Status});
             }
@@ -198,16 +195,13 @@ public class Trucks_Table extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmTruckActionPerformed
-        String TruckName = SessionManager.getInstance().getTruckName();
-        double Capacity = SessionManager.getInstance().getCapacity();
-        int TruckID = SessionManager.getInstance().getTruckID();
-        String TruckStatus = SessionManager.getInstance().getTruckStatus();
         String TruckSize = SessionManager.getInstance().getTruckSize();
         int SelectedTruckID = Integer.parseInt(edtTruckID.getText());
+        SessionManager.getInstance().setTruckID(SelectedTruckID);
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String checkTruck = "SELECT Status FROM myproject.Trucks WHERE TruckSize = ? AND TruckID = ?";
+            String checkTruck = "SELECT Status, Capacity, TruckName FROM myproject.Trucks WHERE TruckSize = ? AND TruckID = ?";
             PreparedStatement checkpstmt = conn.prepareStatement(checkTruck);
             checkpstmt.setString(1, TruckSize);
             checkpstmt.setInt(2, SelectedTruckID);
@@ -216,17 +210,28 @@ public class Trucks_Table extends javax.swing.JFrame {
             if (!rs.next()) {
             JOptionPane.showMessageDialog(null, "Truck not Found");
             return;
+            } else {
+                double Capacity = rs.getDouble("Capacity");
+                String TruckName = rs.getString("TruckName");
+                String Status = rs.getString("Status");
+                
+                SessionManager.getInstance().setCapacity(Capacity);
+                SessionManager.getInstance().setTruckName(TruckName);
+                SessionManager.getInstance().setTruckStatus(Status);
             }
             
             String TruckStatusFromDB = rs.getString("Status");
             if("In Service".equals(TruckStatusFromDB)){
-                JOptionPane.showMessageDialog(null, "Truck not Available");
+                JOptionPane.showMessageDialog(null, "Truck In Service");
                 return;
             } 
 
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+        String TruckName = SessionManager.getInstance().getTruckName();
+        double Capacity = SessionManager.getInstance().getCapacity();
         
         LoadObjects LO = new LoadObjects(TruckName, Capacity);
         SessionManager.getInstance().display();

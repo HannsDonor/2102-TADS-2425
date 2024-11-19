@@ -127,6 +127,10 @@ public class DeleteAccount extends javax.swing.JFrame {
                 
                 if(Username.equals(sqlUsername)){
                     if(Password.equals(sqlPassword)){
+                        
+                        int lUserID = SessionManager.getInstance().getUserID();
+                        RetrieveTruckID(lUserID);
+                         
                         String updateSQL = "DELETE FROM Users WHERE UserID = ?";
                         PreparedStatement deleteStmt = conn.prepareStatement(updateSQL);
                         deleteStmt.setInt(1, UserID);
@@ -135,16 +139,20 @@ public class DeleteAccount extends javax.swing.JFrame {
                         if(rowsAffected > 0){
                             JOptionPane.showMessageDialog(null, "Account Deleted Successfully!");
                             Log_in_Frame LOF = new Log_in_Frame();
+   
                             LOF.show();
                             dispose();
                         }else{
                             JOptionPane.showMessageDialog(null, "Failed to delete Account!");
+                            return;
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Incorrect Password!");
+                        return;
                     }
                 } else{
                     JOptionPane.showMessageDialog(null, "Username Incorrect!");
+                    return;
                 }
                     
             } else {
@@ -155,10 +163,41 @@ public class DeleteAccount extends javax.swing.JFrame {
            
         }catch(Exception e){
             e.printStackTrace();
-        }
-        
+        }              
     }//GEN-LAST:event_btnDeleteAccountActionPerformed
 
+    public void RetrieveTruckID(int UserID){
+    String url = "jdbc:mysql://localhost:3306/myproject";
+    String user = "root";
+    String pass = "";
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT * FROM Package WHERE UserID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                int TruckID = rs.getInt("TruckID");
+                updateTruckStatus(TruckID);
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateTruckStatus(int TruckID){    
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "UPDATE Trucks SET Status = 'Available' WHERE TruckID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, TruckID);
+            pstmt.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

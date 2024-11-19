@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
+import java.util.HashSet;
+import java.util.Set;
 
 import HOME.SessionManager;
 import HOME.Home;
@@ -53,14 +55,14 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
             },
             new String [] {
-                "TruckID", "Package", "Status", "Quantity", "Delivery Address"
+                "TruckID", "Package", "Status", "Quantity"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -77,7 +79,6 @@ public class ViewDeliveries extends javax.swing.JFrame {
             ViewDeliveries.getColumnModel().getColumn(1).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(2).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(3).setResizable(false);
-            ViewDeliveries.getColumnModel().getColumn(4).setResizable(false);
         }
 
         DisplayDeliveries.setText("View Delivery Status");
@@ -161,41 +162,30 @@ public class ViewDeliveries extends javax.swing.JFrame {
     
     
     private void DisplayDeliveriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayDeliveriesActionPerformed
-        DefaultTableModel model = (DefaultTableModel)ViewDeliveries.getModel();
+    DefaultTableModel model = (DefaultTableModel) ViewDeliveries.getModel();
+    model.setRowCount(0);
+
+    int UserID = SessionManager.getInstance().getUserID();
+    
+    try{
+        Connection conn = DriverManager.getConnection(url, user, pass);
+        String sql = "SELECT * FROM Package WHERE UseriD = ? AND Status = 'Out for Delivery'";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, UserID);
+        ResultSet rs = pstmt.executeQuery();
         
-        model.setRowCount(0);
-        
-        int UserID = SessionManager.getInstance().getUserID();
-        
-        try{
-            Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "SELECT DISTINCT \n" +
-                         "    Package.Packagename, \n" +
-                         "    Package.Quantity, \n" +
-                         "    Deliveries.Status, \n" +
-                         "    Deliveries.DropOffAddress, \n" +
-                         "    Trucks.TruckID \n" +
-                         "FROM Package\n" +
-                         "INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID\n" +
-                         "INNER JOIN Trucks ON Deliveries.TruckID = Trucks.TruckID\n" +
-                         "WHERE Package.UserID = ? \n" +
-                         "AND Deliveries.Status = 'Out for Delivery';";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, UserID);
-            ResultSet rs = pstmt.executeQuery();
-            
-            while(rs.next()){
-                String PackageName = rs.getString("PackageName");
-                int Quantity = rs.getInt("Quantity");
-                String Status = rs.getString("Status");
-                String DeliveryAddress = rs.getString("DropOffAddress");
-                int TruckID = rs.getInt("TruckID");
-                
-                model.addRow(new Object[]{ TruckID, PackageName, Quantity, Status, DeliveryAddress});
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }      
+        while (rs.next()) {
+                    String packageName = rs.getString("PackageName");
+                    int quantity = rs.getInt("Quantity");
+                    String status = rs.getString("Status");
+                    int truckID = rs.getInt("TruckID");
+
+                    model.addRow(new Object[]{truckID, packageName, status, quantity});
+                }
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+     
     }//GEN-LAST:event_DisplayDeliveriesActionPerformed
   
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -210,42 +200,24 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
     int UserID = SessionManager.getInstance().getUserID();
     
-    try {
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT * FROM Package WHERE UseriD = ? AND Status = 'Cancelled'";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            ResultSet rs = pstmt.executeQuery();
 
-        Connection conn = DriverManager.getConnection(url, user, pass);
-        
-        String sql = "SELECT DISTINCT \n" +
-                     "    Package.Packagename, \n" +
-                     "    Package.Quantity, \n" +
-                     "    Deliveries.Status, \n" +
-                     "    Deliveries.DropOffAddress, \n" +
-                     "    Trucks.TruckID \n" +
-                     "FROM Package\n" +
-                     "INNER JOIN Deliveries ON Package.UserID = Deliveries.UserID\n" +
-                     "INNER JOIN Trucks ON Deliveries.TruckID = Trucks.TruckID\n" +
-                     "WHERE Package.UserID = ? \n" +
-                     "AND Deliveries.Status = 'Cancelled';";
+            while (rs.next()) {
+                        String packageName = rs.getString("PackageName");
+                        int quantity = rs.getInt("Quantity");
+                        String status = rs.getString("Status");
+                        int truckID = rs.getInt("TruckID");
 
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, UserID);
-        ResultSet rs = pstmt.executeQuery();
-
-        while (rs.next()) {
-            String PackageName = rs.getString("Packagename");
-            int Quantity = rs.getInt("Quantity");
-            String Status = rs.getString("Status");
-            String DeliveryAddress = rs.getString("DropOffAddress");
-            int TruckID = rs.getInt("TruckID");
-            
-
-            model.addRow(new Object[]{ TruckID, PackageName, Quantity, Status, DeliveryAddress});
+                        model.addRow(new Object[]{truckID, packageName, status, quantity});
+                    }
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        
-    } catch (Exception e) {
-
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error retrieving cancelled deliveries: " + e.getMessage());
-    }
     }//GEN-LAST:event_btnDisplayCancelDeliveriesActionPerformed
     
     
@@ -256,32 +228,48 @@ public class ViewDeliveries extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please fill all the text fields");
             return;
         }
-        
+    
         int TruckID = Integer.parseInt(TruckIDText);
         int UserID = SessionManager.getInstance().getUserID();
         
         try{
-        Connection conn = DriverManager.getConnection(url, user, pass);
-        String checkStatusQuery = "SELECT Status FROM Deliveries WHERE TruckID = ? AND UserID = ?";
-        PreparedStatement checkStmt = conn.prepareStatement(checkStatusQuery);
-        checkStmt.setInt(1, TruckID);
-        checkStmt.setInt(2, UserID);
-        
-        ResultSet rs = checkStmt.executeQuery();
-
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT TruckID, Status FROM Package WHERE UserID = ? AND Status = 'Out for Delivery';";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            ResultSet rs = pstmt.executeQuery();
+            
+            boolean TruckFound = false;
+            //fix the truckID if exist
+            while(rs.next()){
+                int CompareTruckID = rs.getInt("TruckID");
+                if(TruckID == CompareTruckID){
+                    
+                    updatePackageStatus(TruckID, UserID);
+                    updateDeliveryStatus(TruckID, UserID);
+                    updateTruckStatus(TruckID);
+                    TruckFound = true;
+                    break;
+                }
+                
+                if(!TruckFound){
+                    JOptionPane.showMessageDialog(null, "Truck not found");
+                }
+            }
         }catch(Exception e){
-                e.printStackTrace();
+            e.printStackTrace();
         }
+    }//GEN-LAST:event_CancelDeliveryActionPerformed
+
+    public void updateDeliveryStatus(int TruckID, int UserID){
+        String url = "jdbc:mysql://localhost:3306/myproject";
+        String user = "root";
+        String pass = "";
         
-        System.out.print(UserID + "  " + TruckID);
-        //UPDATE DELIVERIES TABLE
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String CancelStmt = "UPDATE Deliveries \n" +
-                                "SET Status = 'Cancelled' \n" +
-                                "WHERE TruckID = ? \n" +
-                                "  AND UserID = ? \n" +
-                                "  AND Status = 'Out for Delivery';";
+            String CancelStmt = "UPDATE Deliveries SET Status = 'Cancelled' WHERE TruckID = ? AND UserID = ? AND Status = 'Out for Delivery'";
+
             PreparedStatement pstmt = conn.prepareStatement(CancelStmt);
             pstmt.setInt(1, TruckID);
             pstmt.setInt(2, UserID);
@@ -295,13 +283,50 @@ public class ViewDeliveries extends javax.swing.JFrame {
             }
         }catch(Exception e){
             e.printStackTrace();
-        }
-            int lTruckID = SessionManager.getInstance().getTruckID();
-            LoadObjects LO = new LoadObjects();
-            LO.UpdateTruckStatus("Available", lTruckID);
         
-    }//GEN-LAST:event_CancelDeliveryActionPerformed
+        }
+    }
+    
+    public void updateTruckStatus(int TruckID){
+        String url = "jdbc:mysql://localhost:3306/myproject";
+        String user = "root";
+        String pass = "";
+        
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String updateTruck = "UPDATE Trucks SET Status = 'Available' WHERE TruckID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(updateTruck);
+            pstmt.setInt(1, TruckID);
+            int rowsAffected = pstmt.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        } 
+    }
+    
+    public void updatePackageStatus(int TruckID, int UserID){
+        String url = "jdbc:mysql://localhost:3306/myproject";
+        String user = "root";
+        String pass = "";
+        
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "UPDATE Package SET Status = 'Cancelled' WHERE UserID = ? AND TruckID = ? AND Status = 'Out for Delivery'";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            pstmt.setInt(2, TruckID);
+            int rowsAffected = pstmt.executeUpdate();
+            
+            if(rowsAffected > 0){
+                JOptionPane.showMessageDialog(null, "Cancelled Successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Something Went Wrong!");
+            }
 
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+            
+    }
     /**
      * @param args the command line arguments
      */

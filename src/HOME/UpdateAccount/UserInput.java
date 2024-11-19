@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import HOME.SessionManager;
+import LoginFrames.Log_in_Frame;
 import javax.swing.JOptionPane;
 public class UserInput extends javax.swing.JFrame {
 
@@ -169,6 +170,13 @@ public class UserInput extends javax.swing.JFrame {
                     
                     if (rowsUpdated > 0) {
                         JOptionPane.showMessageDialog(null, "Username changed successfully!");
+                                edtOldUsername.setText("");
+                                edtNewUsername.setText("");
+                                edtPassword.setText("");;
+                                
+                                Log_in_Frame LOF = new Log_in_Frame();
+                                LOF.show();
+                                dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Failed to update username!");
                     }
@@ -183,10 +191,7 @@ public class UserInput extends javax.swing.JFrame {
         }
     } catch (Exception e) {
         e.printStackTrace();
-    } 
-        edtOldUsername.setText("");
-        edtNewUsername.setText("");
-        edtPassword.setText("");;
+        } 
     }//GEN-LAST:event_btnSaveChangesActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

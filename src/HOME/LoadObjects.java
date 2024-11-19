@@ -396,14 +396,15 @@ public class LoadObjects extends javax.swing.JFrame {
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "INSERT INTO Package (PackageName, Weight, Quantity, UserID, TruckID)"
-                       + "VALUES (? , ? , ?, ?, ?)";
+            String sql = "INSERT INTO Package (PackageName, Weight, Quantity, UserID, TruckID, Status)"
+                       + "VALUES (? , ? , ?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, PackageName);
             pstmt.setDouble(2, Weight);
             pstmt.setInt(3, Quantity);
             pstmt.setInt(4, UserID);
             pstmt.setInt(5, TruckID);
+            pstmt.setString(6, "Out for Delivery");
             int rowsAffected = pstmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
