@@ -121,6 +121,7 @@ public class Home extends javax.swing.JFrame {
 
     private void btnViewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrdersActionPerformed
         ViewDeliveries VD = new ViewDeliveries();
+        VD.displayPackage();
         VD.show();
         dispose();
     }//GEN-LAST:event_btnViewOrdersActionPerformed

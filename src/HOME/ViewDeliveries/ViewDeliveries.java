@@ -47,6 +47,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
         CancelDelivery = new javax.swing.JButton();
         strEnterTruckID = new javax.swing.JLabel();
         edtCancelTruckID = new javax.swing.JTextField();
+        btnCompletedDeliveries = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,22 +112,29 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
         strEnterTruckID.setText("Enter Truck ID:");
 
+        btnCompletedDeliveries.setText("Completed Deliveries");
+        btnCompletedDeliveries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompletedDeliveriesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DisplayDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDisplayCancelDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(CancelDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(strEnterTruckID)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(edtCancelTruckID)))
-                    .addComponent(btnBack))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnBack)
+                    .addComponent(DisplayDeliveries, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDisplayCancelDeliveries, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CancelDelivery, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(strEnterTruckID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtCancelTruckID))
+                    .addComponent(btnCompletedDeliveries, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addContainerGap())
@@ -143,7 +151,9 @@ public class ViewDeliveries extends javax.swing.JFrame {
                         .addComponent(DisplayDeliveries)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDisplayCancelDeliveries)
-                        .addGap(91, 91, 91)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCompletedDeliveries)
+                        .addGap(62, 62, 62)
                         .addComponent(CancelDelivery)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -184,10 +194,34 @@ public class ViewDeliveries extends javax.swing.JFrame {
                 }
     }catch(Exception e){
         e.printStackTrace();
-    }
-     
+    }    
     }//GEN-LAST:event_DisplayDeliveriesActionPerformed
   
+    public void displayPackage(){
+    DefaultTableModel model = (DefaultTableModel) ViewDeliveries.getModel();
+    model.setRowCount(0);
+
+    int UserID = SessionManager.getInstance().getUserID();
+    
+    try{
+        Connection conn = DriverManager.getConnection(url, user, pass);
+        String sql = "SELECT * FROM Package WHERE UseriD = ? AND Status = 'Out for Delivery'";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, UserID);
+        ResultSet rs = pstmt.executeQuery();
+        
+        while (rs.next()) {
+                    String packageName = rs.getString("PackageName");
+                    int quantity = rs.getInt("Quantity");
+                    String status = rs.getString("Status");
+                    int truckID = rs.getInt("TruckID");
+
+                    model.addRow(new Object[]{truckID, packageName, status, quantity});
+                }
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+    }
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
       Home H = new Home();
       H.show();
@@ -240,7 +274,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
             ResultSet rs = pstmt.executeQuery();
             
             boolean TruckFound = false;
-            //fix the truckID if exist
+
             while(rs.next()){
                 int CompareTruckID = rs.getInt("TruckID");
                 if(TruckID == CompareTruckID){
@@ -260,6 +294,32 @@ public class ViewDeliveries extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_CancelDeliveryActionPerformed
+
+    private void btnCompletedDeliveriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletedDeliveriesActionPerformed
+    DefaultTableModel model = (DefaultTableModel) ViewDeliveries.getModel();
+    model.setRowCount(0);
+
+    int UserID = SessionManager.getInstance().getUserID();
+    
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT * FROM Package WHERE UseriD = ? AND Status = 'Delivered'";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                        String packageName = rs.getString("PackageName");
+                        int quantity = rs.getInt("Quantity");
+                        String status = rs.getString("Status");
+                        int truckID = rs.getInt("TruckID");
+
+                        model.addRow(new Object[]{truckID, packageName, status, quantity});
+                    }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnCompletedDeliveriesActionPerformed
 
     public void updateDeliveryStatus(int TruckID, int UserID){
         String url = "jdbc:mysql://localhost:3306/myproject";
@@ -367,6 +427,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
     private javax.swing.JButton DisplayDeliveries;
     private javax.swing.JTable ViewDeliveries;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCompletedDeliveries;
     private javax.swing.JButton btnDisplayCancelDeliveries;
     private javax.swing.JTextField edtCancelTruckID;
     private javax.swing.JScrollPane jScrollPane1;

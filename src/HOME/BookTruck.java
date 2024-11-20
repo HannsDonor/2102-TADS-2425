@@ -143,18 +143,21 @@ public class BookTruck extends javax.swing.JFrame {
     
     private void btnSmallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSmallActionPerformed
        SessionManager.getInstance().setTruckSize("Small");
+       TT.displayTrucks();
        TT.show();
        dispose();
     }//GEN-LAST:event_btnSmallActionPerformed
 
     private void btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediumActionPerformed
        SessionManager.getInstance().setTruckSize("Medium");
+       TT.displayTrucks();
        TT.show();
        dispose();
     }//GEN-LAST:event_btnMediumActionPerformed
 
     private void btnLargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLargeActionPerformed
        SessionManager.getInstance().setTruckSize("Large");
+       TT.displayTrucks();
        TT.show();
        dispose();
     }//GEN-LAST:event_btnLargeActionPerformed

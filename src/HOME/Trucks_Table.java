@@ -29,7 +29,6 @@ public class Trucks_Table extends javax.swing.JFrame {
         edtTruckID = new javax.swing.JTextField();
         btnConfirmTruck = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        btnDisplayTrucks = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,13 +98,6 @@ public class Trucks_Table extends javax.swing.JFrame {
             }
         });
 
-        btnDisplayTrucks.setText("Display Trucks");
-        btnDisplayTrucks.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDisplayTrucksActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,12 +109,10 @@ public class Trucks_Table extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edtTruckID)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnConfirmTruck)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                                .addComponent(btnDisplayTrucks))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(btnConfirmTruck))
+                                .addGap(0, 126, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack)))
@@ -146,8 +136,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnConfirmTruck)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnDisplayTrucks)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnBack)))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -158,7 +147,7 @@ public class Trucks_Table extends javax.swing.JFrame {
         String user = "root";
         String pass = "";
         
-    private void btnDisplayTrucksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayTrucksActionPerformed
+    public void displayTrucks(){
         DefaultTableModel model = (DefaultTableModel)Trucks_Table.getModel();
         
         model.setRowCount(0);
@@ -183,10 +172,8 @@ public class Trucks_Table extends javax.swing.JFrame {
             }
         }catch(Exception e){
             e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnDisplayTrucksActionPerformed
-
-    
+        }   
+    }
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         SessionManager.getInstance().resetTruckID();
         BookTruck BT = new BookTruck();
@@ -285,7 +272,6 @@ public class Trucks_Table extends javax.swing.JFrame {
     private javax.swing.JTable Trucks_Table;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnConfirmTruck;
-    private javax.swing.JButton btnDisplayTrucks;
     private javax.swing.JTextField edtTruckID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
