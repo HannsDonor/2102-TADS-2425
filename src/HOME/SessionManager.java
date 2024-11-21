@@ -6,6 +6,7 @@ public class SessionManager {
     private int userID;
     private int truckID;
     private double capacity;
+    private String Username;
     private String TruckName;
     private String TruckSize;
     private String TruckStatus;
@@ -66,11 +67,20 @@ public class SessionManager {
          return this.TruckStatus;
      }
      
+     public void setUsername(String Username){
+         this.Username = Username;
+     }
+     
+     public String getUsername(){
+         return this.Username;
+     }
+     
      public void clearSession() {
         this.userID = 0;
         this.truckID = 0;
         this.capacity = 0;
         this.TruckName = "";
+        this.Username = "";
      }
      
      public void resetTruckID(){

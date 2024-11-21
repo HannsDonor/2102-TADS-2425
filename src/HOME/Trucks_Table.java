@@ -34,20 +34,20 @@ public class Trucks_Table extends javax.swing.JFrame {
 
         Trucks_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Truck ID", "Truck Size", "Capacity/KG", "Status"
+                "Truck ID", "Truck Name", "Truck Size", "Capacity/KG", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,6 +73,7 @@ public class Trucks_Table extends javax.swing.JFrame {
             Trucks_Table.getColumnModel().getColumn(1).setResizable(false);
             Trucks_Table.getColumnModel().getColumn(2).setResizable(false);
             Trucks_Table.getColumnModel().getColumn(3).setResizable(false);
+            Trucks_Table.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jLabel1.setText("Pick Truck");
@@ -168,7 +169,7 @@ public class Trucks_Table extends javax.swing.JFrame {
                 int TruckID = rs.getInt("TruckID");
 
                 
-                model.addRow(new Object[]{TruckID, Size, Capacity, Status});
+                model.addRow(new Object[]{TruckID, TruckName, Size, Capacity, Status});
             }
         }catch(Exception e){
             e.printStackTrace();

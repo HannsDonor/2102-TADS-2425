@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
 
+import LoginFrames.Log_in_Frame;
+
 public class AdminFrame extends javax.swing.JFrame {
 
     /**
@@ -26,7 +28,7 @@ public class AdminFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         btnAddTrucks = new javax.swing.JButton();
         btnCompleteDeliveries = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -38,7 +40,12 @@ public class AdminFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Log Out");
+        btnLogout.setText("Log Out");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         btnAddTrucks.setText("Add Trucks");
         btnAddTrucks.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +130,7 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(644, 644, 644)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnViewDeliveries, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +160,7 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnViewTrucks)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnLogout)
                 .addGap(19, 19, 19))
         );
 
@@ -240,6 +247,20 @@ public class AdminFrame extends javax.swing.JFrame {
         DT.show();
     }//GEN-LAST:event_btnDeleteTrucksActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        int y = JOptionPane.showConfirmDialog(
+                null,
+                "Log out?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION);
+        
+        if(y == JOptionPane.YES_OPTION){
+            Log_in_Frame LOF = new Log_in_Frame();
+            LOF.show();
+            dispose();
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,9 +301,9 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAddTrucks;
     private javax.swing.JButton btnCompleteDeliveries;
     private javax.swing.JButton btnDeleteTrucks;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnViewDeliveries;
     private javax.swing.JButton btnViewTrucks;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

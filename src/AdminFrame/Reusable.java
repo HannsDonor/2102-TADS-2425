@@ -115,7 +115,7 @@ public class Reusable {
     public void updateDeliveryStatus(int TruckID, String Status){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Deliveries SET Status = ? WHERE TruckID = ?";
+            String sql = "UPDATE Deliveries SET Status = ? WHERE TruckID = ? AND Status = 'Out for Delivery'";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Status);
             pstmt.setInt(2, TruckID);
