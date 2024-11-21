@@ -60,6 +60,7 @@ public class Reusable {
     
     public boolean checkTruckID(int TruckID){
         boolean found = false;
+
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
             String sql = "SELECT DISTINCT TruckID FROM Deliveries";
@@ -123,6 +124,28 @@ public class Reusable {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public boolean CheckDeliveries(int TruckID){
+        boolean isCC = true;
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT * FROM Deliveries WHERE TruckID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, TruckID);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                String checkStatus = rs.getString("Status");
+                if(!"Out for Delivery".equals(checkStatus)){
+                    isCC = false;
+                }
+                
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return isCC;
     }
     
     public void updatePackageStatus(int TruckID, String Status){

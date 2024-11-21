@@ -49,6 +49,7 @@ public class Home extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "HOME", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24), new java.awt.Color(153, 153, 153)))); // NOI18N
 
         btnLogout.setBackground(new java.awt.Color(153, 153, 153));
+        btnLogout.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(51, 51, 51));
         btnLogout.setText("Log out");
         btnLogout.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -59,6 +60,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnBookTruck.setBackground(new java.awt.Color(153, 153, 153));
+        btnBookTruck.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         btnBookTruck.setForeground(new java.awt.Color(51, 51, 51));
         btnBookTruck.setText("Book Truck");
         btnBookTruck.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -69,6 +71,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnViewOrders.setBackground(new java.awt.Color(153, 153, 153));
+        btnViewOrders.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         btnViewOrders.setForeground(new java.awt.Color(51, 51, 51));
         btnViewOrders.setText("View Deliveries");
         btnViewOrders.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -79,6 +82,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnUpdateAccount.setBackground(new java.awt.Color(153, 153, 153));
+        btnUpdateAccount.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         btnUpdateAccount.setForeground(new java.awt.Color(51, 51, 51));
         btnUpdateAccount.setText("Update Account");
         btnUpdateAccount.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
