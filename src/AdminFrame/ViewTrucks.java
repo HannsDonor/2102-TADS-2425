@@ -44,20 +44,20 @@ public class ViewTrucks extends javax.swing.JFrame {
 
         ViewTrucksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Truck ID", "Truck Name", "Capacity", "Status", "Truck Size"
+                "Truck ID", "Truck Name", "Current Capacity", "Max Capacity", "Status", "Truck Size", "License Plate"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -75,6 +75,8 @@ public class ViewTrucks extends javax.swing.JFrame {
             ViewTrucksTable.getColumnModel().getColumn(2).setResizable(false);
             ViewTrucksTable.getColumnModel().getColumn(3).setResizable(false);
             ViewTrucksTable.getColumnModel().getColumn(4).setResizable(false);
+            ViewTrucksTable.getColumnModel().getColumn(5).setResizable(false);
+            ViewTrucksTable.getColumnModel().getColumn(6).setResizable(false);
         }
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
@@ -92,14 +94,14 @@ public class ViewTrucks extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +153,10 @@ public class ViewTrucks extends javax.swing.JFrame {
                  double Capacity = rs.getDouble("Capacity");
                  String Status = rs.getString("Status");
                  String TruckSize = rs.getString("TruckSize");
+                 double CurrentCapacity = rs.getDouble("CurrentCapacity");
+                 String LicensePlate = rs.getString("LicensePlate");
                  
-                 model.addRow(new Object[]{TruckID, TruckName, Capacity, Status, TruckSize});
+                 model.addRow(new Object[]{TruckID, TruckName, CurrentCapacity, Capacity, Status, TruckSize, LicensePlate});
             }
         }catch(Exception e){
             e.printStackTrace();

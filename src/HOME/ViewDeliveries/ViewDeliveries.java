@@ -44,14 +44,14 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
             },
             new String [] {
-                "TruckID", "Package", "Status", "Quantity"
+                "TruckID", "Package", "Status", "Quantity", "Time", "Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -68,6 +68,8 @@ public class ViewDeliveries extends javax.swing.JFrame {
             ViewDeliveries.getColumnModel().getColumn(1).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(2).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(3).setResizable(false);
+            ViewDeliveries.getColumnModel().getColumn(4).setResizable(false);
+            ViewDeliveries.getColumnModel().getColumn(5).setResizable(false);
         }
 
         CancelDelivery.setBackground(new java.awt.Color(153, 153, 153));
@@ -151,8 +153,8 @@ public class ViewDeliveries extends javax.swing.JFrame {
                     .addComponent(btnCompletedDeliveries, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CancelDelivery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
@@ -209,7 +211,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
     
     try{
         Connection conn = DriverManager.getConnection(url, user, pass);
-        String sql = "SELECT * FROM Package WHERE UseriD = ? AND Status = 'Out for Delivery'";
+        String sql = "SELECT * FROM Package WHERE UserID = ? AND Status IN ('Out for Delivery', 'Pending')";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, UserID);
         ResultSet rs = pstmt.executeQuery();
@@ -219,8 +221,10 @@ public class ViewDeliveries extends javax.swing.JFrame {
                     int quantity = rs.getInt("Quantity");
                     String status = rs.getString("Status");
                     int truckID = rs.getInt("TruckID");
+                    String Time = rs.getString("TimeCreated");
+                    String Date = rs.getString("DateCreated");
 
-                    model.addRow(new Object[]{truckID, packageName, status, quantity});
+                    model.addRow(new Object[]{truckID, packageName, status, quantity, Time, Date});
                 }
     }catch(Exception e){
         e.printStackTrace();
@@ -235,7 +239,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
     
     try{
         Connection conn = DriverManager.getConnection(url, user, pass);
-        String sql = "SELECT * FROM Package WHERE UseriD = ? AND Status = 'Out for Delivery'";
+        String sql = "SELECT * FROM Package WHERE UserID = ? AND Status IN ('Out for Delivery', 'Pending')";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, UserID);
         ResultSet rs = pstmt.executeQuery();
@@ -245,8 +249,10 @@ public class ViewDeliveries extends javax.swing.JFrame {
                     int quantity = rs.getInt("Quantity");
                     String status = rs.getString("Status");
                     int truckID = rs.getInt("TruckID");
+                    String Time = rs.getString("TimeCreated");
+                    String Date = rs.getString("DateCreated");
 
-                    model.addRow(new Object[]{truckID, packageName, status, quantity});
+                    model.addRow(new Object[]{truckID, packageName, status, quantity, Time, Date});
                 }
     }catch(Exception e){
         e.printStackTrace();

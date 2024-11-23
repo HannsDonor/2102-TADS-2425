@@ -8,8 +8,9 @@ public class SessionManager {
     private double capacity;
     private String Username;
     private String TruckName;
-    private String TruckSize;
+    private String TruckSize = "";
     private String TruckStatus;
+    private double currentCapacity;
     
     private SessionManager() {}
     
@@ -75,13 +76,23 @@ public class SessionManager {
          return this.Username;
      }
      
+     public void setCurrentCapacity(double CurrentCapacity){
+         this.currentCapacity = CurrentCapacity;
+     }
+     
+     public double getCurrentCapacity(){
+         return this.currentCapacity;
+     }
+     
      public void clearSession() {
         this.userID = 0;
         this.truckID = 0;
         this.capacity = 0;
         this.TruckName = "";
         this.Username = "";
+        this.TruckSize = "";
      }
+     
      
      public void resetTruckID(){
          this.truckID = 0;

@@ -205,6 +205,7 @@ public class Home extends javax.swing.JFrame {
         if(y == JOptionPane.YES_OPTION){
             Log_in_Frame LOF = new Log_in_Frame();
             LOF.show();
+            SessionManager.getInstance().clearSession();
             dispose();
         }
     }//GEN-LAST:event_btnLogoutActionPerformed

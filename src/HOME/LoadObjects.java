@@ -345,7 +345,7 @@ public class LoadObjects extends javax.swing.JFrame {
     int Quantity = Integer.parseInt(edtQuantity.getText());
     double Weight = Double.parseDouble(edtWeight.getText());
     
-    double currentTotalWeight = 0;
+    double currentTotalWeight = SessionManager.getInstance().getCurrentCapacity();
     double TotalWeight = Quantity * Weight;
     currentTotalWeight += TotalWeight;
     
@@ -353,6 +353,8 @@ public class LoadObjects extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Exceeded Max Truck Capacity! MAX CAPACITY : " + Capacity);
         return;
     }
+    
+    SessionManager.getInstance().setCurrentCapacity(currentTotalWeight);
       
     lblTotalWeight.setText("Total Weight: " + currentTotalWeight + " kg");
     
@@ -360,6 +362,8 @@ public class LoadObjects extends javax.swing.JFrame {
     Object[] rowData = {PackageName, Quantity, TotalWeight};
     model.insertRow(0, rowData);
     LastAddedRow = rowData;
+    
+    
     
     edtPackageName.setText("");
     edtQuantity.setText("");
@@ -432,8 +436,9 @@ public class LoadObjects extends javax.swing.JFrame {
             
             String PickUpAddress = edtPickUp.getText();
             String DropOffAddress = edtDropOff.getText();
-            Deliveries(PickUpAddress, DropOffAddress, "Out For Delivery", TruckID, UserID);
-            UpdateTruckStatus("In Service", TruckID);
+            Deliveries(PickUpAddress, DropOffAddress, "Pending Driver", TruckID, UserID);
+            double loadWeight = SessionManager.getInstance().getCurrentCapacity();
+            UpdateTruckStatus("In Service", TruckID, loadWeight);
         }
     }
 
@@ -450,7 +455,7 @@ public class LoadObjects extends javax.swing.JFrame {
             pstmt.setInt(3, Quantity);
             pstmt.setInt(4, UserID);
             pstmt.setInt(5, TruckID);
-            pstmt.setString(6, "Out for Delivery");
+            pstmt.setString(6, "Pending");
             int rowsAffected = pstmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
@@ -478,18 +483,20 @@ public class LoadObjects extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Ready To Deliver!");
     }
     
-    public void UpdateTruckStatus(String Status, int TruckID){
+    public void UpdateTruckStatus(String Status, int TruckID, double Loadcapacity){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Trucks SET Status = ? WHERE TruckID = ?";
+            String sql = "UPDATE Trucks SET Status = ?, CurrentCapacity = ? WHERE TruckID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Status);
-            pstmt.setInt(2, TruckID);
+            pstmt.setDouble(2, Loadcapacity);
+            pstmt.setInt(3, TruckID);
             pstmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
         }
     }
+    
         
     
     /**

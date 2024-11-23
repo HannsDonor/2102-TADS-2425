@@ -9,15 +9,16 @@ public class Reusable {
     String user = "root";
     String pass = "";
     
-    public void AddTrucks(String TruckName, String TruckSize, double Capacity){
+    public void AddTrucks(String TruckName, String TruckSize, double Capacity, String LicensePlate){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "INSERT INTO Trucks (TruckName, Capacity, Status, TruckSize) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Trucks (TruckName, Capacity, Status, TruckSize, LicensePlate) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, TruckName);
             pstmt.setDouble(2, Capacity);
             pstmt.setString(3, "Available");
             pstmt.setString(4, TruckSize);
+            pstmt.setString(5, LicensePlate);
             int rowsAffected = pstmt.executeUpdate();
             
             if(rowsAffected > 0){
@@ -100,13 +101,14 @@ public class Reusable {
         return found;
     }
     
-    public void UpdateTruckStatus(int TruckID, String Status){
+    public void UpdateTruckStatus(int TruckID, String Status, double ResetCapacity){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Trucks SET Status = ? WHERE TruckID = ?";
+            String sql = "UPDATE Trucks SET Status = ?, CurrentCapacity = ? WHERE TruckID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Status);
-            pstmt.setInt(2, TruckID);
+            pstmt.setDouble(2, ResetCapacity);
+            pstmt.setInt(3, TruckID);
             pstmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
@@ -175,5 +177,27 @@ public class Reusable {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public boolean ifPending(int TruckID){
+         boolean isPending = false;
+         try{
+             Connection conn = DriverManager.getConnection(url, user, pass);
+             String sql = "SELECT * FROM Deliveries WHERE TruckID = ?";
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             pstmt.setInt(1, TruckID);
+             ResultSet rs = pstmt.executeQuery();
+             
+             if(rs.next()){
+                 String Status = rs.getString("Status");
+                    if("Pending Driver".equals(Status)){
+                        isPending = true;
+                    }
+             }
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         
+         return isPending;
     }
 }

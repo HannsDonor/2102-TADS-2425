@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/UpdateAccount/ChangePassword.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/ViewDeliveries/ViewDeliveries.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/UpdateAccount/UpdateAccount.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/UpdateAccount/DeleteAccount.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/SessionManager.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/Drivers/DriversUI.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/Drivers/Driver_Truck.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/Home.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/Drivers/DriveTruckMethods.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/LoginFrames/Log_in_Frame.java</file>
             <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/LoadObjects.java</file>
         </group>
     </open-files>

@@ -140,8 +140,13 @@ public class CompleteDeliveries extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Truck is Cancelled or Completed");
             return;
         }*/
+         
+        if(r.ifPending(SelectedTruckID)){
+            JOptionPane.showMessageDialog(null, "This Delivery is Still missing a Driver");
+            return;
+        }
         
-        r.UpdateTruckStatus(SelectedTruckID, "Available");
+        r.UpdateTruckStatus(SelectedTruckID, "Available", 0);
         r.updateDeliveryStatus(SelectedTruckID, "Completed");
         r.updatePackageStatus(SelectedTruckID, "Delivered");
         

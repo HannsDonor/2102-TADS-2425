@@ -98,10 +98,11 @@ public class DeleteAccount extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(edtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jRadioButton1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteAccount)
                 .addGap(137, 137, 137)
@@ -233,7 +234,7 @@ public class DeleteAccount extends javax.swing.JFrame {
     public void updateTruckStatus(int TruckID){    
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Trucks SET Status = 'Available' WHERE TruckID = ?";
+            String sql = "UPDATE Trucks SET Status = 'Available', CurrentCapacity = 0 WHERE TruckID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, TruckID);
             pstmt.executeUpdate();

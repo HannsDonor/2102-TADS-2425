@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import HOME.LoadObjects;
 
+import Drivers.DriversUI;
 import HOME.Home;
 import HOME.SessionManager;
 import AdminFrame.AdminFrame;
@@ -228,6 +229,13 @@ public class Log_in_Frame extends javax.swing.JFrame {
                         AdminFrame AD = new AdminFrame();
                         AD.viewDeliveries();
                         AD.show();
+                        dispose();
+                        return;
+                    }else if("Driver".equals(UserType)){
+                        DriversUI UI = new DriversUI();
+                        UI.viewTrucksTable();
+                        UI.WelcomeDriver(Username);
+                        UI.show();
                         dispose();
                         return;
                     }

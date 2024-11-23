@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import Drivers.DriversResume;
+import Drivers.DriversSessionManager;
 public class Create_Account extends javax.swing.JFrame {
 
     public Create_Account() {
@@ -17,6 +19,7 @@ public class Create_Account extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        C_OR_D = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btnShowPass2 = new javax.swing.JRadioButton();
         btnShowPass = new javax.swing.JRadioButton();
@@ -30,6 +33,8 @@ public class Create_Account extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        rbtnCustomer = new javax.swing.JRadioButton();
+        rbtnDriver = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(740, 450));
@@ -96,6 +101,22 @@ public class Create_Account extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("WELCOME NEW USER");
 
+        C_OR_D.add(rbtnCustomer);
+        rbtnCustomer.setText("Customer");
+        rbtnCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCustomerActionPerformed(evt);
+            }
+        });
+
+        C_OR_D.add(rbtnDriver);
+        rbtnDriver.setText("Driver");
+        rbtnDriver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnDriverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -107,25 +128,33 @@ public class Create_Account extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(111, 111, 111)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(edtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(edtUsername, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(edtConfirmPassword)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                            .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                .addComponent(edtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(edtUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(edtConfirmPassword)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addComponent(rbtnDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rbtnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnShowPass2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnShowPass))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +180,11 @@ public class Create_Account extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnReset))
-                .addGap(108, 108, 108)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnCustomer)
+                    .addComponent(rbtnDriver))
+                .addGap(54, 54, 54)
                 .addComponent(btnBack)
                 .addGap(19, 19, 19))
         );
@@ -204,11 +237,24 @@ public class Create_Account extends javax.swing.JFrame {
         }
         return isDupe;
     }
+    
     Log_in_Frame LIF = new Log_in_Frame();
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String Username = edtUsername.getText();
         String Password = edtPassword.getText();
         String ConfirmPassword = edtConfirmPassword.getText();
+        
+        String UserType = null;
+        if (rbtnDriver.isSelected()) {
+        UserType = "Driver";
+        } else if (rbtnCustomer.isSelected()) {
+        UserType = "Customer";
+        }
+        
+        if(UserType == null){
+            JOptionPane.showMessageDialog(null, "Pick Customer Account or Driver Account");
+            return;
+        }
            
         if(!username_checker(Username)){
             JOptionPane.showMessageDialog(null, "Username already exist, Please try another Username");
@@ -216,7 +262,23 @@ public class Create_Account extends javax.swing.JFrame {
             if(!Password.equals(ConfirmPassword)){
             JOptionPane.showMessageDialog(null, "Password and Confirm Password does not match!");
         }else{
+                   
+        if(UserType.equals("Driver")){
+            DriversResume DR = new DriversResume();
+            DriversSessionManager.getInstance().setUsername(Username);
+            DriversSessionManager.getInstance().setPassword(Password);
+            DR.setlblUsername();
+            DR.show();
+            dispose();
+            return;
+        }
         
+        createAccount(Username, Password, UserType);
+            }
+        } 
+    }//GEN-LAST:event_btnCreateActionPerformed
+   
+    public void createAccount(String Username, String Password, String UserType){
         try{
             Connection conn = DriverManager.getConnection(url,user,pass);
             
@@ -225,11 +287,11 @@ public class Create_Account extends javax.swing.JFrame {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
-            pstmt.setString(3, "Customer");
+            pstmt.setString(3, UserType);
             
             int result = pstmt.executeUpdate();
                     if(result > 0){
-                        JOptionPane.showMessageDialog(null, "ACcount Successfully Created!");
+                        JOptionPane.showMessageDialog(null, "Account Successfully Created!");
                         edtUsername.setText("");
                         edtPassword.setText("");
                         edtConfirmPassword.setText("");
@@ -240,11 +302,8 @@ public class Create_Account extends javax.swing.JFrame {
             
         }catch(Exception e){
             e.printStackTrace();
-        }
-            }
         } 
-    }//GEN-LAST:event_btnCreateActionPerformed
-
+    }
     private void btnShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowPassActionPerformed
         if(edtPassword.getEchoChar() == (char) 0){
             edtPassword.setEchoChar('*');
@@ -266,6 +325,15 @@ public class Create_Account extends javax.swing.JFrame {
        LIF.show();
        dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void rbtnDriverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDriverActionPerformed
+
+
+    }//GEN-LAST:event_rbtnDriverActionPerformed
+
+    private void rbtnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCustomerActionPerformed
+
+    }//GEN-LAST:event_rbtnCustomerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,6 +371,7 @@ public class Create_Account extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup C_OR_D;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnReset;
@@ -316,5 +385,7 @@ public class Create_Account extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton rbtnCustomer;
+    private javax.swing.JRadioButton rbtnDriver;
     // End of variables declaration//GEN-END:variables
 }
