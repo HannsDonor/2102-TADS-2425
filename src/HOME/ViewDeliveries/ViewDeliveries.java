@@ -44,14 +44,14 @@ public class ViewDeliveries extends javax.swing.JFrame {
 
             },
             new String [] {
-                "TruckID", "Package", "Status", "Quantity", "Time", "Date"
+                "TruckID", "Package", "Status", "Quantity", "Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -69,7 +69,6 @@ public class ViewDeliveries extends javax.swing.JFrame {
             ViewDeliveries.getColumnModel().getColumn(2).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(3).setResizable(false);
             ViewDeliveries.getColumnModel().getColumn(4).setResizable(false);
-            ViewDeliveries.getColumnModel().getColumn(5).setResizable(false);
         }
 
         CancelDelivery.setBackground(new java.awt.Color(153, 153, 153));
@@ -222,9 +221,8 @@ public class ViewDeliveries extends javax.swing.JFrame {
                     String status = rs.getString("Status");
                     int truckID = rs.getInt("TruckID");
                     String Time = rs.getString("TimeCreated");
-                    String Date = rs.getString("DateCreated");
 
-                    model.addRow(new Object[]{truckID, packageName, status, quantity, Time, Date});
+                    model.addRow(new Object[]{truckID, packageName, status, quantity, Time});
                 }
     }catch(Exception e){
         e.printStackTrace();
@@ -250,9 +248,8 @@ public class ViewDeliveries extends javax.swing.JFrame {
                     String status = rs.getString("Status");
                     int truckID = rs.getInt("TruckID");
                     String Time = rs.getString("TimeCreated");
-                    String Date = rs.getString("DateCreated");
 
-                    model.addRow(new Object[]{truckID, packageName, status, quantity, Time, Date});
+                    model.addRow(new Object[]{truckID, packageName, status, quantity, Time});
                 }
     }catch(Exception e){
         e.printStackTrace();

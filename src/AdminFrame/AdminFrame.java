@@ -39,6 +39,10 @@ public class AdminFrame extends javax.swing.JFrame {
         btnAddTrucks = new javax.swing.JButton();
         btnCompleteDeliveries = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        btnPendingDriver = new javax.swing.JButton();
+        btnOutForDelivery = new javax.swing.JButton();
+        btnCompleted = new javax.swing.JButton();
+        btnViewDrivers = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +153,29 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPendingDriver.setText("Pending Driver");
+        btnPendingDriver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPendingDriverActionPerformed(evt);
+            }
+        });
+
+        btnOutForDelivery.setText("Out for Delivery");
+        btnOutForDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOutForDeliveryActionPerformed(evt);
+            }
+        });
+
+        btnCompleted.setText("Completed");
+        btnCompleted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompletedActionPerformed(evt);
+            }
+        });
+
+        btnViewDrivers.setText("View Drivers");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,40 +184,55 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnViewTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(705, 705, 705)
+                                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnViewTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnDeleteTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnAddTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnViewDeliveries, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPendingDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnDeleteTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(btnAddTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(btnCompleteDeliveries, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(btnOutForDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnViewDrivers, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                                .addGap(66, 66, 66)
+                                .addComponent(btnCompleteDeliveries, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(284, 284, 284)
+                        .addGap(277, 277, 277)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewDeliveries)
+                    .addComponent(btnCompleted)
+                    .addComponent(btnOutForDelivery)
+                    .addComponent(btnPendingDriver)
+                    .addComponent(btnCompleteDeliveries))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewTrucks)
                     .addComponent(btnDeleteTrucks)
                     .addComponent(btnAddTrucks)
-                    .addComponent(btnCompleteDeliveries)
-                    .addComponent(btnViewDeliveries))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnViewTrucks)
+                    .addComponent(btnViewDrivers))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogout)
                 .addGap(15, 15, 15))
@@ -209,8 +251,7 @@ public class AdminFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,6 +312,34 @@ public class AdminFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    public void viewDeliveries(String Filter){
+        DefaultTableModel model = (DefaultTableModel)DeliveriesTable.getModel();
+        model.setRowCount(0);
+        
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT DISTINCT Deliveries.TruckID, Deliveries.PickUpAddress, Deliveries.DropOffAddress, Deliveries.Status, Users.Username\n" +
+                         "FROM Deliveries\n" +
+                         "INNER JOIN Users ON Users.UserID = Deliveries.UserID\n"
+                       + "WHERE Deliveries.Status = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, Filter);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                int TruckID = rs.getInt("TruckID");
+                String PickUpAddress = rs.getString("PickUpAddress");
+                String DropOffAddress = rs.getString("DropOffAddress");
+                String Status = rs.getString("Status");
+                String Username = rs.getString("Username");
+                
+                model.addRow(new Object[]{TruckID, PickUpAddress, DropOffAddress, Status, Username});
+            }           
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     private void btnAddTrucksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTrucksActionPerformed
         AddTrucks AT = new AddTrucks();
         AT.show();
@@ -309,6 +378,18 @@ public class AdminFrame extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnPendingDriverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPendingDriverActionPerformed
+       viewDeliveries("Pending Driver");
+    }//GEN-LAST:event_btnPendingDriverActionPerformed
+
+    private void btnOutForDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOutForDeliveryActionPerformed
+        viewDeliveries("Out for Delivery");
+    }//GEN-LAST:event_btnOutForDeliveryActionPerformed
+
+    private void btnCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletedActionPerformed
+        viewDeliveries("Completed");
+    }//GEN-LAST:event_btnCompletedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,9 +430,13 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JTable DeliveriesTable;
     private javax.swing.JButton btnAddTrucks;
     private javax.swing.JButton btnCompleteDeliveries;
+    private javax.swing.JButton btnCompleted;
     private javax.swing.JButton btnDeleteTrucks;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnOutForDelivery;
+    private javax.swing.JButton btnPendingDriver;
     private javax.swing.JButton btnViewDeliveries;
+    private javax.swing.JButton btnViewDrivers;
     private javax.swing.JButton btnViewTrucks;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

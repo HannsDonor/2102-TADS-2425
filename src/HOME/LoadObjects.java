@@ -410,6 +410,7 @@ public class LoadObjects extends javax.swing.JFrame {
         Trucks_Table TT = new Trucks_Table();
         TT.displayTrucks();
         TT.show();
+        SessionManager.getInstance().clearSession();
         dispose();
         }
     }//GEN-LAST:event_btnBackActionPerformed
@@ -432,18 +433,37 @@ public class LoadObjects extends javax.swing.JFrame {
             int UserID = SessionManager.getInstance().getUserID();
             int TruckID = SessionManager.getInstance().getTruckID();
             
-            TransferToDBMS(PackageName, Weight, Quantity, UserID, TruckID);
+            
             
             String PickUpAddress = edtPickUp.getText();
             String DropOffAddress = edtDropOff.getText();
-            Deliveries(PickUpAddress, DropOffAddress, "Pending Driver", TruckID, UserID);
+            
+            
+            
+            String DeliveryStatus;
+            String PackageStatus;
+            
+            if(DriverThere(TruckID)){
+                DeliveryStatus = "Out for Delivery";
+                PackageStatus = "Out for Delivery";
+                
+            } else {
+                DeliveryStatus = "Pending Driver";
+                PackageStatus = "Pending";
+            }
+            
+            TransferToDBMS(PackageName, Weight, Quantity, UserID, TruckID, PackageStatus);
+            
+            Deliveries(PickUpAddress, DropOffAddress, DeliveryStatus, TruckID, UserID);
+            
             double loadWeight = SessionManager.getInstance().getCurrentCapacity();
+            
             UpdateTruckStatus("In Service", TruckID, loadWeight);
         }
     }
 
        
-    public void TransferToDBMS(String PackageName, double Weight, int Quantity, int UserID, int TruckID){
+    public void TransferToDBMS(String PackageName, double Weight, int Quantity, int UserID, int TruckID, String Status){
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
@@ -455,7 +475,7 @@ public class LoadObjects extends javax.swing.JFrame {
             pstmt.setInt(3, Quantity);
             pstmt.setInt(4, UserID);
             pstmt.setInt(5, TruckID);
-            pstmt.setString(6, "Pending");
+            pstmt.setString(6, Status);
             int rowsAffected = pstmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
@@ -464,7 +484,6 @@ public class LoadObjects extends javax.swing.JFrame {
         
     public void Deliveries(String PickUp, String DropOff, String Status, int TruckID, int UserID){
          
-        //CHECK DUPLICATE
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
             String sql = "INSERT INTO Deliveries (PickUpAddress, DropOffAddress, Status, TruckID, UserID)"
@@ -495,6 +514,27 @@ public class LoadObjects extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public boolean DriverThere(int TruckID){
+        boolean isDriverThere = true;
+            try{
+                Connection conn = DriverManager.getConnection(url, user, pass);
+                String sql = "SELECT DriverID FROM Trucks WHERE TruckID = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, TruckID);
+                ResultSet rs = pstmt.executeQuery();
+                
+                if(rs.next()){
+                    int isDriver = rs.getInt("DriverID");
+                        if(isDriver == 0){
+                            isDriverThere = false;
+                        }
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        return isDriverThere;
     }
     
         
