@@ -274,4 +274,38 @@ public class DriveTruckMethods {
         }
         return isEmpty;
     }
+    
+    public boolean RemoveAllDrivers(){
+        boolean isRemoved = false;
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "UPDATE Trucks SET DriverID = null";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            int ra = pstmt.executeUpdate();
+            
+            if(ra > 0){
+                isRemoved = true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return isRemoved;
+    }
+    
+    public boolean RemoveAllTruckID(){
+        boolean isRemoved = false;
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "UPDATE DriversInfo SET TruckID = null";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            int ra = pstmt.executeUpdate();
+            
+            if(ra > 0){
+                isRemoved = true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return isRemoved;
+    }
 }

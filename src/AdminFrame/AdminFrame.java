@@ -48,6 +48,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Admin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24), new java.awt.Color(153, 153, 153))); // NOI18N
 
+        DeliveriesTable.setBackground(new java.awt.Color(153, 153, 153));
+        DeliveriesTable.setForeground(new java.awt.Color(255, 255, 255));
         DeliveriesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -88,8 +90,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jLabel1.setText("Trucking And Delivery System");
 
         btnDeleteTrucks.setBackground(new java.awt.Color(153, 153, 153));
-        btnDeleteTrucks.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnDeleteTrucks.setForeground(new java.awt.Color(51, 51, 51));
+        btnDeleteTrucks.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteTrucks.setText("Delete Trucks");
         btnDeleteTrucks.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnDeleteTrucks.addActionListener(new java.awt.event.ActionListener() {
@@ -99,8 +100,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         btnViewDeliveries.setBackground(new java.awt.Color(153, 153, 153));
-        btnViewDeliveries.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnViewDeliveries.setForeground(new java.awt.Color(51, 51, 51));
+        btnViewDeliveries.setForeground(new java.awt.Color(255, 255, 255));
         btnViewDeliveries.setText("View Deliveries");
         btnViewDeliveries.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnViewDeliveries.addActionListener(new java.awt.event.ActionListener() {
@@ -110,8 +110,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         btnViewTrucks.setBackground(new java.awt.Color(153, 153, 153));
-        btnViewTrucks.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnViewTrucks.setForeground(new java.awt.Color(51, 51, 51));
+        btnViewTrucks.setForeground(new java.awt.Color(255, 255, 255));
         btnViewTrucks.setText("View Trucks");
         btnViewTrucks.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnViewTrucks.addActionListener(new java.awt.event.ActionListener() {
@@ -121,8 +120,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         btnAddTrucks.setBackground(new java.awt.Color(153, 153, 153));
-        btnAddTrucks.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnAddTrucks.setForeground(new java.awt.Color(51, 51, 51));
+        btnAddTrucks.setForeground(new java.awt.Color(255, 255, 255));
         btnAddTrucks.setText("Add Trucks");
         btnAddTrucks.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAddTrucks.addActionListener(new java.awt.event.ActionListener() {
@@ -132,8 +130,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         btnCompleteDeliveries.setBackground(new java.awt.Color(153, 153, 153));
-        btnCompleteDeliveries.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnCompleteDeliveries.setForeground(new java.awt.Color(51, 51, 51));
+        btnCompleteDeliveries.setForeground(new java.awt.Color(255, 255, 255));
         btnCompleteDeliveries.setText("Complete Deliveries");
         btnCompleteDeliveries.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCompleteDeliveries.addActionListener(new java.awt.event.ActionListener() {
@@ -143,8 +140,7 @@ public class AdminFrame extends javax.swing.JFrame {
         });
 
         btnLogout.setBackground(new java.awt.Color(153, 153, 153));
-        btnLogout.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnLogout.setForeground(new java.awt.Color(51, 51, 51));
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Log Out");
         btnLogout.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -153,28 +149,45 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPendingDriver.setBackground(new java.awt.Color(153, 153, 153));
+        btnPendingDriver.setForeground(new java.awt.Color(255, 255, 255));
         btnPendingDriver.setText("Pending Driver");
+        btnPendingDriver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnPendingDriver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPendingDriverActionPerformed(evt);
             }
         });
 
+        btnOutForDelivery.setBackground(new java.awt.Color(153, 153, 153));
+        btnOutForDelivery.setForeground(new java.awt.Color(255, 255, 255));
         btnOutForDelivery.setText("Out for Delivery");
+        btnOutForDelivery.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnOutForDelivery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOutForDeliveryActionPerformed(evt);
             }
         });
 
+        btnCompleted.setBackground(new java.awt.Color(153, 153, 153));
+        btnCompleted.setForeground(new java.awt.Color(255, 255, 255));
         btnCompleted.setText("Completed");
+        btnCompleted.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCompleted.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompletedActionPerformed(evt);
             }
         });
 
+        btnViewDrivers.setBackground(new java.awt.Color(153, 153, 153));
+        btnViewDrivers.setForeground(new java.awt.Color(255, 255, 255));
         btnViewDrivers.setText("View Drivers");
+        btnViewDrivers.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnViewDrivers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDriversActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,7 +203,7 @@ public class AdminFrame extends javax.swing.JFrame {
                                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnViewTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -199,9 +212,9 @@ public class AdminFrame extends javax.swing.JFrame {
                                         .addComponent(btnAddTrucks, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnViewDeliveries, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnPendingDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnPendingDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnOutForDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -210,7 +223,7 @@ public class AdminFrame extends javax.swing.JFrame {
                                 .addGap(66, 66, 66)
                                 .addComponent(btnCompleteDeliveries, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(277, 277, 277)
+                        .addGap(282, 282, 282)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -220,14 +233,14 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewDeliveries)
-                    .addComponent(btnCompleted)
-                    .addComponent(btnOutForDelivery)
                     .addComponent(btnPendingDriver)
+                    .addComponent(btnOutForDelivery)
+                    .addComponent(btnCompleted)
                     .addComponent(btnCompleteDeliveries))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewTrucks)
                     .addComponent(btnDeleteTrucks)
@@ -390,6 +403,12 @@ public class AdminFrame extends javax.swing.JFrame {
     private void btnCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletedActionPerformed
         viewDeliveries("Completed");
     }//GEN-LAST:event_btnCompletedActionPerformed
+
+    private void btnViewDriversActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDriversActionPerformed
+        viewDrivers VD = new viewDrivers();
+        VD.viewDrivers();
+        VD.show();
+    }//GEN-LAST:event_btnViewDriversActionPerformed
 
     /**
      * @param args the command line arguments

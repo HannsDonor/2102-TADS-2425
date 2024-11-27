@@ -44,11 +44,8 @@ public class CompleteDeliveries extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Truck ID: ");
 
-        edtTruckID.setText("Enter Truck ID");
-
         btnCompleteDelivery.setBackground(new java.awt.Color(153, 153, 153));
-        btnCompleteDelivery.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnCompleteDelivery.setForeground(new java.awt.Color(51, 51, 51));
+        btnCompleteDelivery.setForeground(new java.awt.Color(255, 255, 255));
         btnCompleteDelivery.setText("Complete Delivery");
         btnCompleteDelivery.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCompleteDelivery.addActionListener(new java.awt.event.ActionListener() {
@@ -58,8 +55,7 @@ public class CompleteDeliveries extends javax.swing.JFrame {
         });
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
-        btnBack.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 51, 51));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {

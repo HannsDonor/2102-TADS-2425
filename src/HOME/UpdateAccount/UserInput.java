@@ -52,8 +52,7 @@ public class UserInput extends javax.swing.JFrame {
         jLabel3.setText("Password:");
 
         btnSaveChanges.setBackground(new java.awt.Color(153, 153, 153));
-        btnSaveChanges.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnSaveChanges.setForeground(new java.awt.Color(51, 51, 51));
+        btnSaveChanges.setForeground(new java.awt.Color(255, 255, 255));
         btnSaveChanges.setText("Save Changes");
         btnSaveChanges.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSaveChanges.addActionListener(new java.awt.event.ActionListener() {
@@ -63,8 +62,7 @@ public class UserInput extends javax.swing.JFrame {
         });
 
         btnReset.setBackground(new java.awt.Color(153, 153, 153));
-        btnReset.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnReset.setForeground(new java.awt.Color(51, 51, 51));
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
         btnReset.setText("Reset");
         btnReset.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -88,8 +86,7 @@ public class UserInput extends javax.swing.JFrame {
         jLabel2.setText("New Username:");
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
-        btnBack.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 51, 51));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -150,10 +147,10 @@ public class UserInput extends javax.swing.JFrame {
                     .addComponent(btnShowPassword))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSaveChanges)
-                    .addComponent(btnReset))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(btnBack)
+                    .addComponent(btnSaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
 

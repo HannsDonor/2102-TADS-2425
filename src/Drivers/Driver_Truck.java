@@ -36,16 +36,29 @@ public class Driver_Truck extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Drive Truck", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 18))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel2.setText("Truck ID:");
 
+        edtTruckID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtTruckIDActionPerformed(evt);
+            }
+        });
+
+        btnDriveTruck.setBackground(new java.awt.Color(153, 153, 153));
+        btnDriveTruck.setForeground(new java.awt.Color(255, 255, 255));
         btnDriveTruck.setText("Drive This Truck");
+        btnDriveTruck.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnDriveTruck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDriveTruckActionPerformed(evt);
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(153, 153, 153));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
+        btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -65,8 +78,8 @@ public class Driver_Truck extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnDriveTruck, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                     .addComponent(edtTruckID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,7 +93,7 @@ public class Driver_Truck extends javax.swing.JFrame {
                             .addComponent(edtTruckID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDriveTruck)
-                        .addGap(0, 11, Short.MAX_VALUE))
+                        .addGap(0, 12, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -138,6 +151,8 @@ public class Driver_Truck extends javax.swing.JFrame {
                         } else {
                             
                             DTM.DriveThisTruck(TruckID, DriverID);
+                            DriversUI UI = new DriversUI();
+                            UI.setAssignedTruck();
                             
                         }
         } else {
@@ -151,12 +166,20 @@ public class Driver_Truck extends javax.swing.JFrame {
                             return;
                         } else {
                             DTM.DriveThisTruck(TruckID, DriverID);
+                            DriversUI UI = new DriversUI();
+                            UI.setAssignedTruck();
+                            
                             }
         }
         
-        
+        edtTruckID.setText("");
+        dispose();
             
     }//GEN-LAST:event_btnDriveTruckActionPerformed
+
+    private void edtTruckIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtTruckIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtTruckIDActionPerformed
 
     /**
      * @param args the command line arguments

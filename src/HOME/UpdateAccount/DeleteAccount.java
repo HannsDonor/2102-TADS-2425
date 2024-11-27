@@ -35,8 +35,7 @@ public class DeleteAccount extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Delete Account", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24), new java.awt.Color(153, 153, 153))); // NOI18N
 
         btnDeleteAccount.setBackground(new java.awt.Color(153, 153, 153));
-        btnDeleteAccount.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnDeleteAccount.setForeground(new java.awt.Color(51, 51, 51));
+        btnDeleteAccount.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteAccount.setText("Delete Account");
         btnDeleteAccount.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnDeleteAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -54,8 +53,7 @@ public class DeleteAccount extends javax.swing.JFrame {
         jLabel2.setText("Password:");
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
-        btnBack.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 51, 51));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -104,9 +102,9 @@ public class DeleteAccount extends javax.swing.JFrame {
                         .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
-                .addComponent(btnDeleteAccount)
-                .addGap(137, 137, 137)
-                .addComponent(btnBack)
+                .addComponent(btnDeleteAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(113, 113, 113)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
 

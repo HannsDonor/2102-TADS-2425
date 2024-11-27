@@ -4,10 +4,12 @@
  */
 package AdminFrame;
 
+import Drivers.DriveTruckMethods;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,27 +39,30 @@ public class ViewTrucks extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ViewTrucksTable = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
+        btnRemoveAllDrivers = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Trucks Table", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24), new java.awt.Color(153, 153, 153)))); // NOI18N
 
+        ViewTrucksTable.setBackground(new java.awt.Color(153, 153, 153));
+        ViewTrucksTable.setForeground(new java.awt.Color(255, 255, 255));
         ViewTrucksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Truck ID", "Truck Name", "Current Capacity", "Max Capacity", "Status", "Truck Size", "License Plate"
+                "Truck ID", "Driver ID", "Truck Name", "Current Capacity", "Max Capacity", "Status", "Truck Size", "License Plate"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -77,11 +82,11 @@ public class ViewTrucks extends javax.swing.JFrame {
             ViewTrucksTable.getColumnModel().getColumn(4).setResizable(false);
             ViewTrucksTable.getColumnModel().getColumn(5).setResizable(false);
             ViewTrucksTable.getColumnModel().getColumn(6).setResizable(false);
+            ViewTrucksTable.getColumnModel().getColumn(7).setResizable(false);
         }
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
-        btnBack.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 51, 51));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -90,18 +95,31 @@ public class ViewTrucks extends javax.swing.JFrame {
             }
         });
 
+        btnRemoveAllDrivers.setBackground(new java.awt.Color(153, 153, 153));
+        btnRemoveAllDrivers.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemoveAllDrivers.setText("Remove All Drivers");
+        btnRemoveAllDrivers.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnRemoveAllDrivers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveAllDriversActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnRemoveAllDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +127,9 @@ public class ViewTrucks extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBack)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(btnRemoveAllDrivers))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -134,6 +154,19 @@ public class ViewTrucks extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnRemoveAllDriversActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllDriversActionPerformed
+        DriveTruckMethods DTM = new DriveTruckMethods();
+        int y = JOptionPane.showConfirmDialog(null, "Removed All Drivers?", "Confirm", JOptionPane.YES_NO_OPTION);
+        
+        if(y == JOptionPane.YES_OPTION){
+        
+            if(DTM.RemoveAllDrivers() && DTM.RemoveAllTruckID()){
+                JOptionPane.showMessageDialog(null, "All Drivers Removed");
+                return;
+            }
+        }
+    }//GEN-LAST:event_btnRemoveAllDriversActionPerformed
+
     String url = "jdbc:mysql://localhost:3306/myproject";
     String user = "root";
     String pass = "";
@@ -155,8 +188,9 @@ public class ViewTrucks extends javax.swing.JFrame {
                  String TruckSize = rs.getString("TruckSize");
                  double CurrentCapacity = rs.getDouble("CurrentCapacity");
                  String LicensePlate = rs.getString("LicensePlate");
+                 int DriverID = rs.getInt("DriverID");
                  
-                 model.addRow(new Object[]{TruckID, TruckName, CurrentCapacity, Capacity, Status, TruckSize, LicensePlate});
+                 model.addRow(new Object[]{TruckID, DriverID, TruckName, CurrentCapacity, Capacity, Status, TruckSize, LicensePlate});
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -200,6 +234,7 @@ public class ViewTrucks extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ViewTrucksTable;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRemoveAllDrivers;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

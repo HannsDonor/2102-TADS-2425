@@ -44,8 +44,7 @@ public class DeleteTrucks extends javax.swing.JFrame {
         jLabel1.setText("Truck ID:");
 
         btnDeleteTrucks.setBackground(new java.awt.Color(153, 153, 153));
-        btnDeleteTrucks.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnDeleteTrucks.setForeground(new java.awt.Color(51, 51, 51));
+        btnDeleteTrucks.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteTrucks.setText("Delete Truck");
         btnDeleteTrucks.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnDeleteTrucks.addActionListener(new java.awt.event.ActionListener() {
@@ -55,8 +54,7 @@ public class DeleteTrucks extends javax.swing.JFrame {
         });
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
-        btnBack.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 51, 51));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {

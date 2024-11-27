@@ -1,9 +1,12 @@
 package AdminFrame;
+import HOME.ViewDeliveries.ViewDeliveries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
+import java.util.HashSet;
+import java.util.Set;
 public class Reusable {
     String url = "jdbc:mysql://localhost:3306/myproject";
     String user = "root";
@@ -29,6 +32,33 @@ public class Reusable {
             }
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+    
+    public boolean RecieveAllPackage(int UserID){
+        Set<Integer> TruckIDs = new HashSet<>();
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT TruckID FROM Package WHERE UserID = ? AND Status = 'Delivered to Doorstep'";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                int getTruckID = rs.getInt("TruckID");
+                TruckIDs.add(getTruckID);
+            }
+            
+            for (int truckID : TruckIDs) {
+            UpdateTruckStatus(truckID, "Available", 0);
+            updateDeliveryStatus(truckID, "Completed");
+            updatePackageStatus(truckID, "Delivered");
+            }
+            
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
     
@@ -153,7 +183,7 @@ public class Reusable {
     public void updatePackageStatus(int TruckID, String Status){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Package SET Status = ? WHERE TruckID = ? AND Status = 'Out for Delivery'";
+            String sql = "UPDATE Package SET Status = ? WHERE TruckID = ? AND Status = 'Delivered to Doorstep'";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Status);
             pstmt.setInt(2, TruckID);

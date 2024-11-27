@@ -48,16 +48,24 @@ public class DriversResume extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Resume", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24), new java.awt.Color(153, 153, 153))); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel1.setText("Driver Name:");
 
+        lblsetDriverName.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel2.setText("Experience:");
 
+        jLabel3.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel3.setText("Years");
 
+        jLabel4.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel4.setText("Age:");
 
+        jLabel5.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel5.setText("Address:");
 
+        rbtnMale.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         rbtnMale.setText("Male");
         rbtnMale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +73,7 @@ public class DriversResume extends javax.swing.JFrame {
             }
         });
 
+        rbtnFemale.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         rbtnFemale.setText("Female");
         rbtnFemale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +81,10 @@ public class DriversResume extends javax.swing.JFrame {
             }
         });
 
+        btnCreateDriver.setBackground(new java.awt.Color(153, 153, 153));
+        btnCreateDriver.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateDriver.setText("Create Driver");
+        btnCreateDriver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCreateDriver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateDriverActionPerformed(evt);
@@ -112,10 +124,10 @@ public class DriversResume extends javax.swing.JFrame {
                         .addComponent(edtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCreateDriver)
+                .addComponent(btnCreateDriver, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
@@ -142,7 +154,7 @@ public class DriversResume extends javax.swing.JFrame {
                     .addComponent(edtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(btnCreateDriver)
                 .addGap(18, 18, 18))
         );
