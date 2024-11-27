@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/AdminFrame/viewDrivers.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/AdminFrame/AdminFrame.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/AdminFrame/DeleteTrucks.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/AdminFrame/CompleteDeliveries.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/Drivers/DriveTruckMethods.java</file>
-            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/AdminFrame/ViewTrucks.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/Drivers/DriversUI.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/ViewDeliveries/ViewDeliveries.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/Trucks_Table.java</file>
+            <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/LoginFrames/Log_in_Frame.java</file>
             <file>file:/C:/Users/donor/OneDrive/Documents/NetBeansProjects/SEMESTRAL_PROJECT_19/src/HOME/LoadObjects.java</file>
         </group>
     </open-files>

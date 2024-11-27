@@ -209,23 +209,32 @@ public class ChangePassword extends javax.swing.JFrame {
                }
            }
            
-           try{
-               String UpdateSQL = "UPDATE Users SET Password = ? WHERE UserID = ?";
-               PreparedStatement updateStmt = conn.prepareStatement(UpdateSQL);
-               updateStmt.setString(1, NewPassword);
-               updateStmt.setInt(2, UserID);
-               int rowsAffected = updateStmt.executeUpdate();
-                    if(rowsAffected > 0){
-                        JOptionPane.showMessageDialog(null, "Saved Changes!");
-                        Log_in_Frame LOF = new Log_in_Frame();
-                        LOF.show();
-                        dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Failed to update Password!");
+            int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Are you sure you want to change your password?",
+            "Confirm Password Change",
+            JOptionPane.YES_NO_OPTION
+            );
+            
+            if (confirm == JOptionPane.YES_OPTION) {           
+                try{
+                    String UpdateSQL = "UPDATE Users SET Password = ? WHERE UserID = ?";
+                    PreparedStatement updateStmt = conn.prepareStatement(UpdateSQL);
+                    updateStmt.setString(1, NewPassword);
+                    updateStmt.setInt(2, UserID);
+                    int rowsAffected = updateStmt.executeUpdate();
+                         if(rowsAffected > 0){
+                             JOptionPane.showMessageDialog(null, "Saved Changes!");
+                             Log_in_Frame LOF = new Log_in_Frame();
+                             LOF.show();
+                             dispose();
+                         }else{
+                             JOptionPane.showMessageDialog(null, "Failed to update Password!");
                     }
            }catch(Exception e){
                e.printStackTrace();
            }
+            }
            
        }catch(Exception e){
            e.printStackTrace();

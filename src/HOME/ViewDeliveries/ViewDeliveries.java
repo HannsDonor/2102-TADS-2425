@@ -318,14 +318,22 @@ public class ViewDeliveries extends javax.swing.JFrame {
     
     private void CancelDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelDeliveryActionPerformed
         String TruckIDText = edtCancelTruckID.getText().trim();
-        
+            
+
         if(TruckIDText.isEmpty()){
             JOptionPane.showMessageDialog(null, "Please fill all the text fields");
             return;
         }
-    
+        
         int TruckID = Integer.parseInt(TruckIDText);
         int UserID = SessionManager.getInstance().getUserID();
+        
+        
+        if(!checkCancel(UserID, TruckID)){
+            JOptionPane.showMessageDialog(null, "Truck not found");
+            return;
+        }
+
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
@@ -350,7 +358,30 @@ public class ViewDeliveries extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+        displayPackage();
     }//GEN-LAST:event_CancelDeliveryActionPerformed
+    
+    public boolean checkCancel(int UserID, int TruckID){
+        boolean Found = false;
+        
+        try{
+            Connection conn = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT * FROM Package WHERE UserID = ? AND TruckID = ? AND Status IN ('Pending', 'Out for Delivery')";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            pstmt.setInt(2, TruckID);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Found = true;
+                    }
+            }  
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return Found;
+    }
     
     public boolean CheckIfCancel(int UserID){
         boolean Claim = false;
@@ -461,7 +492,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String CancelStmt = "UPDATE Deliveries SET Status = 'Cancelled' WHERE TruckID = ? AND UserID = ? AND Status IN ('Out for Delivery', 'Pending');";
+            String CancelStmt = "UPDATE Deliveries SET Status = 'Cancelled' WHERE TruckID = ? AND UserID = ? AND Status IN ('Out for Delivery', 'Pending Driver');";
 
             PreparedStatement pstmt = conn.prepareStatement(CancelStmt);
             pstmt.setInt(1, TruckID);
@@ -471,8 +502,6 @@ public class ViewDeliveries extends javax.swing.JFrame {
             if(rowsAffected > 0){
                 JOptionPane.showMessageDialog(null, "Cancelled Successfully!");
                 edtCancelTruckID.setText("");
-            }else{
-                JOptionPane.showMessageDialog(null, "Truck Not Found");
             }
         }catch(Exception e){
             e.printStackTrace();

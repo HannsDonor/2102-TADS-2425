@@ -128,8 +128,9 @@ public class DeleteTrucks extends javax.swing.JFrame {
         if(!r.checkAllTruckID(SelectedTruckID)){
             JOptionPane.showMessageDialog(null, "TruckID not found");
         }
-        
+       
         r.updatePackageStatus(SelectedTruckID, "Cancelled");
+        r.updateDeliveryStatus(SelectedTruckID, "Cancelled");
         r.deleteTruck(SelectedTruckID);
     }//GEN-LAST:event_btnDeleteTrucksActionPerformed
 

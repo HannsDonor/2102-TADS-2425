@@ -204,38 +204,46 @@ public class UserInput extends javax.swing.JFrame {
             if (OldUsername.equals(CurrentUsername)) {
                 
                 if (Password.equals(CurrentPassword)) {
-                    
-                    String sql = "UPDATE Users SET Username = ? WHERE UserID = ?";
-                    PreparedStatement updstmt = conn.prepareStatement(sql);
-                    updstmt.setString(1, NewUsername);
-                    updstmt.setInt(2, UserID);
-                    
-                    int rowsUpdated = updstmt.executeUpdate();
-                    
-                    if (rowsUpdated > 0) {
-                        JOptionPane.showMessageDialog(null, "Username changed successfully!");
-                                edtOldUsername.setText("");
-                                edtNewUsername.setText("");
-                                edtPassword.setText("");;
-                                
-                                Log_in_Frame LOF = new Log_in_Frame();
-                                LOF.show();
-                                dispose();
+                    int confirm = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you want to change your username to '" + NewUsername + "'?",
+                        "Confirm Username Change",
+                        JOptionPane.YES_NO_OPTION
+                );
+                    if(confirm == JOptionPane.YES_OPTION){
+                            String sql = "UPDATE Users SET Username = ? WHERE UserID = ?";
+                            PreparedStatement updstmt = conn.prepareStatement(sql);
+                            updstmt.setString(1, NewUsername);
+                            updstmt.setInt(2, UserID);
+
+                            int rowsUpdated = updstmt.executeUpdate();
+
+                            if (rowsUpdated > 0) {
+                                JOptionPane.showMessageDialog(null, "Username changed successfully!");
+                                        edtOldUsername.setText("");
+                                        edtNewUsername.setText("");
+                                        edtPassword.setText("");;
+
+                                        Log_in_Frame LOF = new Log_in_Frame();
+                                        LOF.show();
+                                        dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Failed to update username!");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Incorrect password!");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Failed to update username!");
+                        JOptionPane.showMessageDialog(null, "Old username does not match!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Incorrect password!");
+                    JOptionPane.showMessageDialog(null, "Username does not exist!");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Old username does not match!");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Username does not exist!");
-        }
     } catch (Exception e) {
         e.printStackTrace();
         } 
+        
     }//GEN-LAST:event_btnSaveChangesActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

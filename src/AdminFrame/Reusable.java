@@ -148,7 +148,7 @@ public class Reusable {
     public void updateDeliveryStatus(int TruckID, String Status){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Deliveries SET Status = ? WHERE TruckID = ? AND Status = 'Out for Delivery'";
+            String sql = "UPDATE Deliveries SET Status = ? WHERE TruckID = ? AND Status IN ('Out for Delivery', 'Pending Driver')";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Status);
             pstmt.setInt(2, TruckID);
@@ -183,7 +183,7 @@ public class Reusable {
     public void updatePackageStatus(int TruckID, String Status){
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String sql = "UPDATE Package SET Status = ? WHERE TruckID = ? AND Status = 'Delivered to Doorstep'";
+            String sql = "UPDATE Package SET Status = ? WHERE TruckID = ? AND Status IN ('Delivered to Doorstep', 'Out for Delivery', 'Pending')";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Status);
             pstmt.setInt(2, TruckID);

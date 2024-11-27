@@ -31,8 +31,8 @@ public class AddTrucks extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Add Trucks", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24))); // NOI18N
-        jPanel1.setForeground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Add Trucks", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Impact", 0, 24), new java.awt.Color(153, 153, 153))); // NOI18N
+        jPanel1.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -87,8 +87,7 @@ public class AddTrucks extends javax.swing.JFrame {
         jLabel3.setText("Capacity: 3500 KG");
 
         btnBack.setBackground(new java.awt.Color(153, 153, 153));
-        btnBack.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 51, 51));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +207,17 @@ public class AddTrucks extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Truck Already Exist");
         }
         
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Are you sure you want to add the truck '" + TruckName + "' with license plate '" + LicensePlate + "'?",
+            "Confirm Add Truck",
+            JOptionPane.YES_NO_OPTION
+        );
+        
+        if(confirm == JOptionPane.YES_OPTION){
+        
          Large.AddTrucks(TruckName, "Large", 7500, LicensePlate);
+        }
     }//GEN-LAST:event_btnAddLargeTruckActionPerformed
 
     private void btnAddSmallTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSmallTruckActionPerformed
@@ -225,7 +234,17 @@ public class AddTrucks extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Truck Already Exist");
         }
         
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Are you sure you want to add the truck '" + TruckName + "' with license plate '" + LicensePlate + "'?",
+            "Confirm Add Truck",
+            JOptionPane.YES_NO_OPTION
+        ); 
+        
+        if(confirm == JOptionPane.YES_OPTION){
+        
          Small.AddTrucks(TruckName, "Small", 3500, LicensePlate);
+        }
     }//GEN-LAST:event_btnAddSmallTruckActionPerformed
 
     private void btnAddMediumTruckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMediumTruckActionPerformed
@@ -242,7 +261,17 @@ public class AddTrucks extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Truck Already Exist");
         }
         
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Are you sure you want to add the truck '" + TruckName + "' with license plate '" + LicensePlate + "'?",
+            "Confirm Add Truck",
+            JOptionPane.YES_NO_OPTION
+        );
+        
+        if(confirm == JOptionPane.YES_OPTION){
+        
          Medium.AddTrucks(TruckName, "Medium", 5000, LicensePlate);
+        }
     }//GEN-LAST:event_btnAddMediumTruckActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
