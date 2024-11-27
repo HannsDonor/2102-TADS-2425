@@ -247,11 +247,11 @@ public class Trucks_Table extends javax.swing.JFrame {
         
         String TruckName = SessionManager.getInstance().getTruckName();
         double Capacity = SessionManager.getInstance().getCapacity();
-        
+             
         LoadObjects LO = new LoadObjects(TruckName, Capacity);
         SessionManager.getInstance().display();
         LO.show();
-        dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_btnConfirmTruckActionPerformed
 
     private void Trucks_TableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Trucks_TableAncestorAdded

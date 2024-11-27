@@ -181,6 +181,11 @@ public class LoadObjects extends javax.swing.JFrame {
 
         MetricUnits.add(kg);
         kg.setText("Kilogram");
+        kg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kgActionPerformed(evt);
+            }
+        });
 
         MetricUnits.add(grams);
         grams.setText("Grams");
@@ -358,66 +363,60 @@ public class LoadObjects extends javax.swing.JFrame {
     //THIS AREA STORES THE ADDED ROW INCASE OF UNDO
     private Object[] LastAddedRow = null;
     
+    private String SelectedUnit;
     private double currentTotalWeight = 0;
+    
     // USE THIS TO DISPLAY THE TOTAL OF WHOLE TABLE PACKAGE WEIGHT
     private void btnAddPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPackageActionPerformed
-    DefaultTableModel model = (DefaultTableModel)Objects_Table.getModel();
-    double Capacity = SessionManager.getInstance().getCapacity();
-    
-    if(model.getRowCount() >= 20){
-        JOptionPane.showMessageDialog(null, "Truck Can only Carry 20 rows");
-        return;
-    }
-    
-    if(edtPackageName.getText().isEmpty() && edtQuantity.getText().isEmpty() && edtWeight.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Please Fill All the Fields");
-        return;
-    }
-    
-    String PackageName = edtPackageName.getText();
-    int Quantity = Integer.parseInt(edtQuantity.getText());
-    double Weight = Double.parseDouble(edtWeight.getText());
-    
-    double TotalWeight = Quantity * Weight;
-    
-    
-    if(currentTotalWeight + TotalWeight > Capacity){
-        JOptionPane.showMessageDialog(null, "Exceeded Max Truck Capacity! MAX CAPACITY : " + Capacity);
-        return;
-    }
-    
-    currentTotalWeight += TotalWeight;
-    
-    SessionManager.getInstance().setCurrentCapacity(currentTotalWeight);
-      
-    lblTotalWeight.setText("Total Weight: " + currentTotalWeight + " kg");
-    
-    
-    Object[] rowData = {PackageName, Quantity, TotalWeight};
-    model.insertRow(0, rowData);
-    LastAddedRow = rowData;
-    
-    
-    
-    edtPackageName.setText("");
-    edtQuantity.setText("");
-    edtWeight.setText("");
-    }//GEN-LAST:event_btnAddPackageActionPerformed
-    
-    public int convertToKG(double value) {
-        if (MetricUnits.getSelection() == null) {
-            throw new IllegalStateException("No unit selected!");
+        DefaultTableModel model = (DefaultTableModel) Objects_Table.getModel();
+        double Capacity = SessionManager.getInstance().getCapacity();
+
+        if (model.getRowCount() >= 20) {
+            JOptionPane.showMessageDialog(null, "Truck can only carry 20 rows.");
+            return;
+        }
+        if (edtPackageName.getText().isEmpty() || edtQuantity.getText().isEmpty() || edtWeight.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all the fields.");
+            return;
+        }
+        
+        String PackageName = edtPackageName.getText();
+        int Quantity = Integer.parseInt(edtQuantity.getText());
+        double Weight = Double.parseDouble(edtWeight.getText());
+
+        
+        double weightInKg = convertToKG(Weight);
+        double TotalWeight = Quantity * weightInKg;
+
+        if (currentTotalWeight + TotalWeight > Capacity) {
+            JOptionPane.showMessageDialog(null, "Exceeded max truck capacity! MAX CAPACITY: " + Capacity + " kg");
+            return;
         }
 
-        String selectedUnit = MetricUnits.getSelection().getActionCommand();
+        currentTotalWeight += TotalWeight;
+        SessionManager.getInstance().setCurrentCapacity(currentTotalWeight);
 
-        switch (selectedUnit) {
+        lblTotalWeight.setText("Total Weight: " + currentTotalWeight + " kg");
+
+        Object[] rowData = {PackageName, Quantity, TotalWeight};
+        model.insertRow(0, rowData);
+
+        LastAddedRow = rowData;
+
+        edtPackageName.setText("");
+        edtQuantity.setText("");
+        edtWeight.setText("");
+    }//GEN-LAST:event_btnAddPackageActionPerformed
+    
+    public double convertToKG(double value) {
+             
+        switch (SelectedUnit) {
             case "Gram":
-                return (int) (value / 1000);
+                return value / 1000;
             case "Ton":
-                return (int) (value * 1000);
+                return value * 1000;
             case "Kilogram":
-                return (int) value;
+                return value;
             default:
                 throw new IllegalArgumentException("Invalid metric unit selected!");
         }
@@ -475,12 +474,16 @@ public class LoadObjects extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void tonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tonActionPerformed
-        // TODO add your handling code here:
+        SelectedUnit = "Ton";
     }//GEN-LAST:event_tonActionPerformed
 
     private void gramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gramsActionPerformed
-        // TODO add your handling code here:
+        SelectedUnit = "Gram";
     }//GEN-LAST:event_gramsActionPerformed
+
+    private void kgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kgActionPerformed
+        SelectedUnit = "Kilogram";
+    }//GEN-LAST:event_kgActionPerformed
 
     public void TableToDBMS(){
         DefaultTableModel model = (DefaultTableModel)Objects_Table.getModel();
@@ -490,16 +493,11 @@ public class LoadObjects extends javax.swing.JFrame {
             int Quantity = (Integer) model.getValueAt(i, 1);
             double Weight = (Double) model.getValueAt(i, 2);
             
-            
             int UserID = SessionManager.getInstance().getUserID();
             int TruckID = SessionManager.getInstance().getTruckID();
             
-            
-            
             String PickUpAddress = edtPickUp.getText();
             String DropOffAddress = edtDropOff.getText();
-            
-            
             
             String DeliveryStatus;
             String PackageStatus;
@@ -523,7 +521,6 @@ public class LoadObjects extends javax.swing.JFrame {
         }
     }
 
-       
     public void TransferToDBMS(String PackageName, double Weight, int Quantity, int UserID, int TruckID, String Status){
         
         try{

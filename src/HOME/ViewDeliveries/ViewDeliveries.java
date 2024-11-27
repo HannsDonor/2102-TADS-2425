@@ -346,10 +346,6 @@ public class ViewDeliveries extends javax.swing.JFrame {
                     TruckFound = true;
                     break;
                 }
-                
-                if(!TruckFound){
-                    JOptionPane.showMessageDialog(null, "Truck not found");
-                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -491,7 +487,7 @@ public class ViewDeliveries extends javax.swing.JFrame {
         
         try{
             Connection conn = DriverManager.getConnection(url, user, pass);
-            String updateTruck = "UPDATE Trucks SET Status = 'Available' WHERE TruckID = ?";
+            String updateTruck = "UPDATE Trucks SET Status = 'Available', CurrentCapacity = 0 WHERE TruckID = ?";
             PreparedStatement pstmt = conn.prepareStatement(updateTruck);
             pstmt.setInt(1, TruckID);
             int rowsAffected = pstmt.executeUpdate();
